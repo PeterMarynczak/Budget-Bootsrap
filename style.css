@@ -1,0 +1,37 @@
+/*###############*/
+/* Główne*/
+/*###############*/
+
+body{
+
+	font-family: 'Open Sans';
+	color: #34495e;
+	background-color: #ffffff;
+}
+
+/*###############*/
+/* Menu górne*/
+/*###############*/
+
+.navbar-default{
+    background-color: #DADFE1;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+}
+
+#logo img{
+    display: block;
+	float: none;
+	margin-top: -1rem;
+    width: 200px;
+    height: 40px;
+}
+
+.centered {
+   text-align: center;
+}
+.centered > div {
+   float: none;
+   display: inline-block;
+   text-align: left;
+}
