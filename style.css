@@ -14,7 +14,7 @@ body{
 /*###############*/
 
 .navbar-default{
-    background-color: #DADFE1;
+    background-color: #dfe6e9;
     margin-bottom: 0.5rem;
     padding: 0.25rem;
 }
@@ -27,11 +27,21 @@ body{
     height: 40px;
 }
 
-.centered {
-   text-align: center;
+
+/*###############*/
+/* Body index.html*/
+/*###############*/
+      
+#index_body{
+	text-align: center;	
 }
-.centered > div {
-   float: none;
-   display: inline-block;
-   text-align: left;
+
+#index_body h5,
+#index_body p{
+ 	text-align: left;
+	margin-top: 1rem;
+}
+
+#family_img{
+    border-radius: 1rem;
 }
