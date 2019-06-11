@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="pl">
   <head>
     <title>Budgety</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>  
@@ -40,7 +40,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 body_naglowek">       
                     <h2>Aplikacja dbająca o finanse</h2>
                         <p class="quote-text">
-                            Zrobić budżet to wskazać swoim pieniądzom, dokąd mają iść, zamiast się zastanawiać, gdzie się rozeszły.</br> - John C. Maxwell 
+                            Zrobić budżet to wskazać swoim pieniądzom, dokąd mają iść, zamiast się zastanawiać, gdzie się rozeszły.<br> - John C. Maxwell 
                         </p>
                     <hr>
                 </div>
@@ -63,6 +63,65 @@
         </div>
     </section>
 
+    <!--###############################-->
+    <!-- LOGOWANIE###################-->
+    <!--###############################-->
+
+    <div class="container jumbotron text-center" id="login-panel">
+        <h3 id="join-h3">Dołącz do budgety.pl już dziś!</h3>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Logowanie</button>
+        
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#regModal" id="but-reg">Rejestracja</button>
+    </div>
+
+    <div class="modal fade" role="dialog" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Zaloguj się</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username">
+                    </div>
+                     <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" >Zaloguj się</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+      <div class="modal fade" role="dialog" id="regModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Zarejestruj się</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username">
+                    </div>
+                     <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="but-reg">Zarejestruj się</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
       
     <!-- sekcja JavaScript  -->
     <script src="js/jquery-2.0.3.min.js"></script>
