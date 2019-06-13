@@ -63,9 +63,24 @@ body{
     margin-top: 0.5rem;
 }
 
-
-
-
+.modal-dialog {
+  margin-top: 200px;
+  width: 360px;
+  height: 500px !important;
+ }
+ 
+.modal-content {
+    height: 60%;
+    background-color:#dfe6e9;
+}     
+ 
+.modal-header {
+    background-color: #BDC3C7;
+    padding:16px 16px;
+    color:#34495e;
+    border-bottom:1px solid #dfe6e9;
+    text-align: center;
+ }
 
 
 
