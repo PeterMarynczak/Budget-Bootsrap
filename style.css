@@ -19,14 +19,10 @@ body{
     padding: 0.25rem;
 }
 
-#logo img{
-    display: block;
-	float: none;
-	margin-top: -1rem;
-    width: 200px;
-    height: 40px;
-}
 
+#logo_glowne{
+    height: 5.5rem;
+}
 
 /*###############*/
 /* Body index.html*/
@@ -82,14 +78,102 @@ body{
     text-align: center;
  }
 
+/*###############*/
+/* menu górne menu.html*/
+/*###############*/
+
+#menu{
+	background-color: #dfe6e9;
+}
 
 
+.navbar{
+	background-color: #dfe6e9;
+	font-size: 1.7rem;
+	color: #34495e;
+	border-color: #dfe6e9;
+    padding-top: 0.5rem;
+}
+
+.navbar-outer{
+	width: 1200px;
+}
+
+.navbar-default .navbar-nav > li > a{
+	color: #34495e;
+	margin-left: 5px;
+	border: 1px solid transparent;
+	line-height: 1rem;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+	display: block;
+	color: #fc4349;
+	border: 1px solid transparent;
+	border-color: #fc4349;
+	line-height: 1rem;
+	border-radius: 4px;
+	transition: all 0.7s ease;
+}
+
+.navbar-default .navbar-nav > .active > a{
+	display: block;
+	border-color: #ffffff;
+	background-color: #DADFE1;
+	border-radius: 4px;
+}
+
+.navbar-default .navbar-nav > .active > a:hover{
+	color: #fc4349;
+	background-color: #34495E;
+}
+
+.navbar-default .navbar-nav > .active > a:focus{
+	background-color: #34495E;
+}
 
 
+/*###############*/
+/* Efekt Carousel*/
+/*###############*/
+
+#pokaz-slajdow{
+	padding-top: 9rem;
+}
+
+.carousel .item {
+	width: 100%;
+	max-height: 900px;
+}
+
+.carousel .item img {
+	width: 100%;
+}
+
+.carousel .carousel-control{
+	background: none;
+	border: none;
+	top: 50%;
+}
+
+.carousel-caption{
+	top: 100px;
+	bottom: auto;
+}
 
 
+.carousel-caption h1{
+	text-transform: uppercase;
+	font-weight: 600;
+	line-height: 8rem;
+	color: #ffffff;
+}
 
-
+.carousel-caption p{
+	font-size: 2.5rem;
+	font-weight: 300;
+	color: #ffffff;
+}
 
 
 
