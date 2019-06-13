@@ -21,6 +21,11 @@
 
 
 @media(max-width: 767px){
+    .carousel-caption h1,
+	.carousel-caption p{
+		font-size: 2rem;
+		line-height: 2.5rem;
+	}
 
 	.block{
 		margin-left: -20px;

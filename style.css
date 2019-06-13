@@ -138,12 +138,14 @@ body{
 /*###############*/
 
 #pokaz-slajdow{
-	padding-top: 9rem;
+	padding-top: 4rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
 }
 
 .carousel .item {
 	width: 100%;
-	max-height: 900px;
+	max-height: 500px;
 }
 
 .carousel .item img {
@@ -161,7 +163,6 @@ body{
 	bottom: auto;
 }
 
-
 .carousel-caption h1{
 	text-transform: uppercase;
 	font-weight: 600;
@@ -175,7 +176,29 @@ body{
 	color: #ffffff;
 }
 
+/*###############*/
+/* Stopka*/
+/*###############*/
 
+#stopka{
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	text-align: left;
+	background-color: #26425E;
+	color: #ffffff;	
+    margin-top: 10rem;
+}
+
+#stopka h4{
+	color: #ffffff;	
+    font-size: 80%;
+}
+
+#stopka img{
+	float: right;
+	margin-right: 2rem;
+	width: 4rem;
+}
 
 
 
