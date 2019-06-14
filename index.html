@@ -7,6 +7,7 @@
 
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="style.css">
+    <link href="css/responsive.css" rel="stylesheet" media="screen">
       
     <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,latin-ext">
   </head>
@@ -71,7 +72,7 @@
         <h3 id="join-h3">Dołącz do budgety.pl już dziś!</h3>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Logowanie</button>
         
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#regModal" id="but-reg">Rejestracja</button>
+        <button type="button" class="btn btn-success but-reg" data-toggle="modal" data-target="#regModal">Rejestracja</button>
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">
@@ -116,12 +117,28 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="but-reg">Zarejestruj się</button>
+                    <button type="submit" class="btn btn-success but-reg">Zarejestruj się</button>
                 </div>
             </div>
         </div>
     </div>    
     
+    <hr>
+    <section id="stopka">
+        <div class="container">
+            <footer class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">       
+                    <h4>Copyright 2019 &copy; Budgety.pl</h4>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <a href="#"><img src="icons/facebook.png" alt="" class="img-responsive"></a>
+                    <a href="#"><img src="icons/googleplus.png" alt="" class="img-responsive"></a>
+                    <a href="#"><img src="icons/twitter.png" alt="" class="img-responsive"></a>
+                    <a href="#"><img src="icons/vimeo.png" alt="" class="img-responsive"></a>                 
+                </div>
+            </footer>
+        </div>
+    </section>
       
     <!-- sekcja JavaScript  -->
     <script src="js/jquery-2.0.3.min.js"></script>

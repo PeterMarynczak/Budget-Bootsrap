@@ -51,7 +51,7 @@ body{
     margin-right: 2rem;
 }
 
-#but-reg{
+.but-reg{
     background-color: #E87E04;
 }
 
@@ -94,6 +94,16 @@ body{
 	border-color: #dfe6e9;
     padding-top: 0.5rem;
 }
+
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
+
+.navbar-nav > li {
+      float: none;
+      display: inline-block;
+    }
 
 .navbar-outer{
 	width: 1200px;
@@ -184,13 +194,13 @@ body{
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
 	text-align: left;
-	background-color: #26425E;
+	background-color: #ebf5ef;
 	color: #ffffff;	
     margin-top: 10rem;
 }
 
 #stopka h4{
-	color: #ffffff;	
+	color: #000;	
     font-size: 80%;
 }
 
@@ -199,6 +209,8 @@ body{
 	margin-right: 2rem;
 	width: 4rem;
 }
+
+
 
 
 
