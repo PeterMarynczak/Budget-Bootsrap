@@ -33,7 +33,7 @@
 
         <div class="collapse navbar-collapse" id="moje-menu">
           <ul class="nav navbar-nav mr-auto">
-            <li class="pull-left nav-item"><a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li class="pull-left nav-item"><a href="menu.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
             <li><a class="nav-link" href="przychod.html"><span class="glyphicon glyphicon-plus"></span> Dodaj przychód</a></li>
             <li class="nav-item"><a class="nav-link" href="#wydatek"><span class="glyphicon glyphicon-minus"></span> Dodaj wydatek</a></li>
             <li class="nav-item"><a class="nav-link" href="#bilans"><span class="glyphicon glyphicon-usd"></span> Przeglądaj bilans</a></li>
@@ -44,73 +44,103 @@
       </div><!-- /.container-fluid -->
     </nav>  
 </header>         
-    
-  
-    <!--###############################-->
-    <!--Carousel ######################-->
-        <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#pokaz-slajdow" data-slide-to="0" class="active"></li>
-                <li data-target="#pokaz-slajdow" data-slide-to="1"></li>
-                <li data-target="#pokaz-slajdow" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="images/carousel1.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Kontroluj własny budżet</h1>
-                        <p>Poznaj aplikację Budgety.pl</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="images/carousel2.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Przeglądaj własny rachunek w kilka sekund</h1>
-                    </div>                 
-                </div>
-                <div class="item">
-                    <img src="images/carousel3.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Siła oszczędzania</h1>
-                        <p>To proste, wydawaj mniej niż zarabiasz</p>
-                    </div>                 
-                </div>                        
-            </div>
-        </div>
 
-    <!--###############################-->
-    <!--stopka ########################-->
-    <!--###############################-->
+<!--###############################-->
+<!--formularz########################-->
+<!--###############################-->
+ 
+<h3 id="subject">Dodaj przychód</h3>
+<div class="container">
+    <div class="col-md-offset-3 col-md-6">
+      <form role="form">
+        <div class="form-group">
+          <label for="kwota" class="col-md-2">
+            Kwota:
+          </label>
+          <div class="col-md-10 input-group">
+            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-usd"></span></span>
+            <input type="text" class="form-control" id="kwota" placeholder="Wprowadź kwotę przychodu">
+          </div>
+        </div>
+          
+        <div class="form-group">
+          <label for="date" class="col-md-2">
+        Data uzyskania:
+          </label>
+          <div class="col-md-10 input-group">
+            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+            <input class="form-control" type="text" id="date" name="date" placeholder="YYYY-MM-DD" />
+          </div>
+        </div>  
+    
+ 
+    <div class="form-group">
+      <label for="kategoria" class="col-md-2">
+        Kategoria:
+      </label>
+      <div class="col-md-10">
+        <label class="radio">
+          <input type="radio" name="kategoria" id="kategoria" value="wynagrodzenie" checked>
+          Wynagrodzenie
+        </label>
+        <label class="radio">
+          <input type="radio" name="kategoria" id="kategoria" value="odestki">
+          Odsetki bankowe
+        </label>
+        <label class="radio">
+          <input type="radio" name="kategoria" id="kategoria" value="allegro">
+          Sprzedaż na Allegro
+        </label>
+        <label class="radio">
+          <input type="radio" name="kategoria" id="kategoria" value="inne">
+          Inne
+        </label>
+      </div>
+    </div>
+ 
+    <div class="row">
+      <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-success btn-sm">
+          Dodaj
+        </button>
+        <button type="submit" class="btn btn-danger btn-sm">
+          Anuluj
+        </button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>      
+  
+ 
+<!--###############################-->
+<!--stopka ########################-->
+<!--###############################-->
 
    <hr>
     <section id="stopka">
-        <div class="container">
             <footer class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">       
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">       
                     <h4>Copyright 2019 &copy; Budgety.pl</h4>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <a href="#"><img src="icons/facebook.png" alt="" class="img-responsive"></a>
                     <a href="#"><img src="icons/googleplus.png" alt="" class="img-responsive"></a>
                     <a href="#"><img src="icons/twitter.png" alt="" class="img-responsive"></a>
                     <a href="#"><img src="icons/vimeo.png" alt="" class="img-responsive"></a>                 
                 </div>
             </footer>
-        </div>
     </section>
       
     <!-- sekcja JavaScript  -->
-     <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
-
+    <script src="js/wlasny.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>   
+      
     <script>
-        $('ul.navbar-nav li a').each((i, item) => {
-          if ($(item).attr('data-page')) {
-            $(item).on('click', (element) => {
-                $('#mainContainer').load($(element.target).attr('data-page')+'.html');
-    });
-  }
-});
+       
     </script>
   </body>
 </html>

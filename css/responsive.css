@@ -3,13 +3,21 @@
 		font-size: 70%;
 		line-height: 1.2rem;
 	}
+    #stopka img{
+        height: 7%;
+        width: 7%;
+    }
 }
 
 @media(min-width: 992px) and (max-width: 1199px){
 	html{
-		font-size: 55%;
+		font-size: 50%;
 		line-height: 1.2rem;
 	}
+    #stopka img{
+        height: 6%;
+        width: 6%;
+    }
 }
 
 @media(min-width: 768px) and (max-width: 991px){
@@ -17,13 +25,17 @@
 		font-size: 40%;
 		line-height: 1.2rem;
 	}
+    #stopka img{
+        height: 5%;
+        width: 5%;
+    }
 }
 
 
 @media(max-width: 767px){
     .carousel-caption h1,
 	.carousel-caption p{
-		font-size: 2rem;
+		font-size: 1.5rem;
 		line-height: 2.5rem;
 	}
 
@@ -31,6 +43,10 @@
 		margin-left: -20px;
 		margin-right: -20px;
 	}
+    #stopka img{
+        height: 4%;
+        width: 4%;
+    }
 }
 
 
