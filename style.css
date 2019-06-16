@@ -158,6 +158,7 @@ body{
 	max-height: 500px;
 }
 
+
 .carousel .item img {
 	width: 100%;
 }
@@ -195,8 +196,11 @@ body{
 	padding-bottom: 1.5rem;
 	text-align: left;
 	background-color: #ebf5ef;
+    padding: 1rem;
 	color: #ffffff;	
-    margin-top: 10rem;
+    bottom: 0; 
+    right: 0;
+    left: 0;
 }
 
 #stopka h4{
@@ -211,8 +215,13 @@ body{
 }
 
 
+/*###############*/
+/* formularz*/
+/*###############*/
 
-
+h3{
+    text-align: center;
+}
 
 
 
