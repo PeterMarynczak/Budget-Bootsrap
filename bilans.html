@@ -49,112 +49,51 @@
 <!--formularz########################-->
 <!--###############################-->
  
-<h3 id="subject">Dodaj wydatek</h3>
-<div class="container">
-    
-    <div class="col-md-offset-2 col-md-8">
-      <form role="form">
-        <div class="form-group">
-    <div class="row">
-          <label for="kwota" class="col-md-2 col-lg-2">
-            Kwota:
-          </label>
-          <div class="col-md-10 col-lg-10 input-group">
-            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-usd"></span></span>
-            <input type="text" class="form-control" id="kwota" placeholder="Wprowadź kwotę przychodu">
-          </div>
-        </div>
-        </div>
-        
-    <div class="row">
-        <div class="form-group">
-          <label for="date" class="col-md-2 col-lg-2">
-        Data:
-          </label>
-          <div class="col-md-10 col-lg-10 input-group">
-            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input class="form-control" type="text" id="date" name="date" placeholder="YYYY-MM-DD" />
-          </div>
-        </div>  
-        </div>
-    
-    <div class="form-group">
-        <div class="row">
-          <label for="platnosc" class="col-md-2 col-lg-2">
-            Sposób płatności:
-          </label>
-          <div class="col-md-10 col-lg-10">
-            <label class="radio">
-              <input type="radio" name="platnosc" id="platnosc" value="gotowka" checked>
-              Gotówka
-            </label>
-            <label class="radio">
-              <input type="radio" name="platnosc" id="platnosc" value="debetowa">
-              Karta debetowa
-            </label>
-            <label class="radio">
-              <input type="radio" name="platnosc" id="platnosc" value="kredytowa">
-              Karta kredytowa
-            </label>
-         </div>
-      </div>
-    </div>
-          
-    <div class="form-group">
-    <div class="row">
-    <label for="kategoria" class="col-md-2 col-lg-2">Kategoria:</label>
-        <div class="col-md-10 col-lg-10">
-            <select class="form-control" id="kategoria">
-              <option>Jedzenie</option>
-              <option>Mieszkanie</option>
-              <option>Transport</option>
-              <option>Telekomunikacja</option>
-              <option>Opieka zdrowotna</option>
-              <option>Ubranie</option>
-              <option>Higiena</option>
-              <option>Dzieci</option>
-              <option>Rozrywka</option>
-              <option>Szkolenia</option>
-              <option>Książki</option>
-              <option>Oszczędności</option>
-              <option>Na złotą jesień, czyli emeryturę</option>
-              <option>Spłata długów</option>
-              <option>Darowizna</option>
-              <option>Inne wydatki</option>
-            </select>
-        </div>
-    </div>
-  </div>
-          
 
-          
-    <div class="form-group shadow-textarea">
-        <div class="row">
-            <label for="komentarz" class="col-md-2 col-lg-2">Komentarz:</label>
-                <div class="col-md-10 col-lg-10">
-                    <textarea class="form-control z-depth-1" id="komentarz" rows="1"></textarea>
-                </div>
-            </div>
-        </div>
- 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-success btn-sm">
-                  Dodaj
-                </button>
-                <button type="submit" class="btn btn-danger btn-sm">
-                  Anuluj
-                </button>
-            </div>
-        </div>
+
+<!-- Single button -->
+<div class="col-md-4 col-lg-4 text-right"> 
+    <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Wybierz zakres <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu text-left">
+            <li><a href="#">Bieżący miesiąc</a></li>
+            <li><a href="#">Poprzedni miesiąc</a></li>
+            <li><a href="#">Bierzący rok</a></li>
+            <li role="separator" class="divider"></li>
+            <li data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></li>
+          </ul>
     </div>
-  </form>
-    </div>
-  </div>
-</div>      
-  
- 
+</div>
+      
+<!--################################################-->
+<!--modal window zakred dat ########################-->
+<!--################################################-->
+      
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Zakres dat</h4>
+              </div>
+              <div class="modal-body">
+                <div class="input-group input-daterange">
+                    <input type="text" class="form-control" name="date">
+                    <div class="input-group-addon">do</div>
+                    <input type="text" class="form-control" name="date">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-primary">Zapisz</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+       
 <!--###############################-->
 <!--stopka ########################-->
 <!--###############################-->

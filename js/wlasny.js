@@ -15,9 +15,14 @@
             container: container,
             todayHighlight: true,
             autoclose: true,
+            container: container,
+            todayHighlight: true,
+            orientation: "left top",
         })
     })
     
     $('.input-daterange input').each(function() {
     $(this).datepicker('clearDates');
 });
+
+/*--------------------------------*/

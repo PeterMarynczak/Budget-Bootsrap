@@ -192,11 +192,11 @@ body{
 /*###############*/
 
 #stopka{
+    position: absolute;
 	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
+	padding: 1rem;
 	text-align: left;
 	background-color: #ebf5ef;
-    padding: 1rem;
 	color: #ffffff;	
     bottom: 0; 
     right: 0;
