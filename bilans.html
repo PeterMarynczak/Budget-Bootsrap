@@ -92,6 +92,7 @@
             </div>
           </div>
       </div>
+      
 
 <h3>Przychody</h3>
 <div class="table-responsive">
@@ -99,6 +100,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Data</th>
       <th scope="col">Wynagrodzenie</th>
       <th scope="col">Odsetki bankowe</th>
       <th scope="col">Sprzedaż na Allegro</th>
@@ -112,9 +114,11 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">2</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -126,9 +130,11 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Suma:</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -144,6 +150,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Data</th>
       <th scope="col">Jedzenie</th>
       <th scope="col">Mieszkanie</th>
       <th scope="col">Transport</th>
@@ -183,6 +190,7 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">2</th>
@@ -223,9 +231,11 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
     </tr>
     <tr>
       <th scope="row">Suma:</th>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -247,9 +257,12 @@
   </tbody>
 </table>
 </div>
-
       
-       
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <canvas id="myChart"></canvas>
+    </div> 
+
+ 
 <!--###############################-->
 <!--stopka ########################-->
 <!--###############################-->
@@ -272,12 +285,12 @@
     <!-- sekcja JavaScript  -->
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/wlasny.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>   
-      
-    <script>
-       
+    <script src="js/wlasny.js"></script>  
+   <script>
+
     </script>
   </body>
 </html>
