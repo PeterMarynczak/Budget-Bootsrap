@@ -1586,6 +1586,7 @@ table th[class*="col-"] {
 @media (max-width: 767px) {
   .table-responsive {
     width: 100%;
+    font-size: 1.1rem;
     margin-bottom: 15px;
     overflow-x: scroll;
     overflow-y: hidden;
