@@ -7,6 +7,7 @@ body{
 	font-family: 'Open Sans';
 	color: #34495e;
 	background-color: #ffffff;
+    padding-bottom: 70px;
 }
 
 /*###############*/
@@ -192,7 +193,6 @@ body{
 /*###############*/
 
 #stopka{
-    position: relative;
 	padding-top: 1.5rem;
 	padding: 1rem;
 	text-align: left;
@@ -296,46 +296,86 @@ canvas { width: 100% !important; max-width: 800px; height: auto !important; }
 .pt:before { background-color: #FDC489; }
 .unemp:before { background-color: #F7901E; }
 
-$base-color: #E82C2E;
-$female: 6;
-$icon-size: 50px;
-.gender-icon{
-        stroke: desaturate($base-color, 100);
-        }
-.gender ul{
-  width: $icon-size*7;
-}
-.gender li {
-  @for $i from 1 through $female {
-    &:nth-child(#{$i}) {
-     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjEzcHgiIGhlaWdodD0iMjJweCIgdmlld0JveD0iMCAwIDEzIDIyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4wLjMgKDc4OTIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPkZlbWFsZTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSJGZW1hbGUiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDAwMDAwLCAxLjAwMDAwMCkiIHN0cm9rZT0iI0U4MkMyRCIgc3Ryb2tlLXdpZHRoPSIxLjU5OSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgICAgICAgICAgPHBhdGggZD0iTTUuNDUwNiw5LjQ2NDggQzguMDIwNiw5LjQ2NDggMTAuMTAzNiw3LjM4MTggMTAuMTAzNiw0LjgxMTggQzEwLjEwMzYsMi4yNDI4IDguMDIwNiwwLjE1ODggNS40NTA2LDAuMTU4OCBDMi44ODA2LDAuMTU4OCAwLjc5NzYsMi4yNDI4IDAuNzk3Niw0LjgxMTggQzAuNzk3Niw3LjM4MTggMi44ODA2LDkuNDY0OCA1LjQ1MDYsOS40NjQ4IEw1LjQ1MDYsOS40NjQ4IFoiIGlkPSJTdHJva2UtMzM0IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik01LjM2NDUsOS41OTI1IEw1LjM2NDUsMjAuMDIwNSIgaWQ9IlN0cm9rZS0zMzYiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4KICAgICAgICAgICAgPHBhdGggZD0iTTEwLjQ1NDMsMTMuOTI3MiBMMC40NDczLDEzLjkyNzIiIGlkPSJTdHJva2UtMzM3IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=);
-      background-size: $icon-size/1.75;
-      background-repeat: no-repeat;
-      background-position: center;
-      padding: $icon-size/2;
-      .gender-icon{
-        stroke: $base-color;
-        }
+
+/*table*/
+.table-wrapper {
+		width: 700px;
+		margin: 10px auto;
+        background: #fff;
+        padding: 20px;	
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
     }
-  }
-  @for $i from ($female + 1) through 10 {
-    &:nth-child(#{$i}) {
-        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjE3cHgiIGhlaWdodD0iMTdweCIgdmlld0JveD0iMCAwIDE3IDE3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4wLjMgKDc4OTIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPk1hbGU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBza2V0Y2g6dHlwZT0iTVNQYWdlIj4KICAgICAgICA8ZyBpZD0iTWFsZSIgc2tldGNoOnR5cGU9Ik1TTGF5ZXJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMS4wMDAwMDAsIDEuMDAwMDAwKSIgc3Ryb2tlPSIjOTM5Njk4IiBzdHJva2Utd2lkdGg9IjEuNTk5IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgICAgICAgICA8cGF0aCBkPSJNNy40NjEyLDYuMjE0NCBDNS4yNTgyLDQuODkxNCAyLjQwMDIsNS42MDM0IDEuMDc2Miw3LjgwNjQgQy0wLjI0NjgsMTAuMDA4NCAwLjQ2NjIsMTIuODY3NCAyLjY2ODIsMTQuMTkwNCBDNC44NzEyLDE1LjUxNDQgNy43MjkyLDE0LjgwMTQgOS4wNTMyLDEyLjU5OTQgQzEwLjM3NjIsMTAuMzk2NCA5LjY2NDIsNy41Mzc0IDcuNDYxMiw2LjIxNDQgTDcuNDYxMiw2LjIxNDQgWiIgaWQ9IlN0cm9rZS0zNTQiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4KICAgICAgICAgICAgPHBhdGggZD0iTTguNTM1NSw3LjAwODUgTDE0LjYxNDUsMC44NjU1IiBpZD0iU3Ryb2tlLTM1NiIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgICAgICA8cGF0aCBkPSJNOS44MDMzLDAuNDA2OSBMMTUuMTM1MywwLjQwNjkgTDE1LjEzNTMsNS4zNDM5IiBpZD0iU3Ryb2tlLTM1NyIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+);
-      fill: $base-color;
-      background-size: $icon-size/1.3;
-      padding: $icon-size/2;
-      background-repeat: no-repeat;
-      background-position: center;
-
+    .table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
     }
-  }
-  display: inline-block;
-}
-path{
-          fill: $base-color;
-        }
-
-
+    .table-title h2 {
+        margin: 6px 0 0;
+        font-size: 22px;
+    }
+    .table-title .add-new {
+        float: right;
+		height: 30px;
+		font-weight: bold;
+		font-size: 12px;
+		text-shadow: none;
+		min-width: 100px;
+		border-radius: 50px;
+		line-height: 13px;
+    }
+	.table-title .add-new i {
+		margin-right: 4px;
+	}
+    table.table {
+        table-layout: fixed;
+    }
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+    }
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    table.table th:last-child {
+        width: 100px;
+    }
+    table.table td a {
+		cursor: pointer;
+        display: inline-block;
+        margin: 0 5px;
+		min-width: 24px;
+    }    
+	table.table td a.add {
+        color: #27C46B;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+	table.table td a.add i {
+        font-size: 24px;
+    	margin-right: -1px;
+        position: relative;
+        top: 3px;
+    }    
+    table.table .form-control {
+        height: 32px;
+        line-height: 32px;
+        box-shadow: none;
+        border-radius: 2px;
+    }
+	table.table .form-control.error {
+		border-color: #f50000;
+	}
+	table.table td .add {
+		display: none;
+	}
 
 
 
