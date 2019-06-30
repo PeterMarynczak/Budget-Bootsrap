@@ -56,6 +56,11 @@ margin-right: 2rem;
 background-color: #E87E04;
 }
 
+.but-reg:hover{
+background-color: #D76D03;
+}
+
+
 #join-h3{
 margin-top: 0.5rem;
 }
@@ -221,8 +226,6 @@ width: 4rem;
 h3{
 text-align: center;
 }
-
-
 
 .demographics, .education, .employment{
 width: 33%;

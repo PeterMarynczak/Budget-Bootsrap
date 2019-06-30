@@ -79,23 +79,25 @@
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Zaloguj się</h3>
+                    <h3 class="modal-title">LOGOWANIE</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 
-                <div class="modal-body">
-                    <div class="form-group input-group">
-                        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="username" class="form-control" placeholder="Username">
+                <form action="zaloguj.php" method="post">
+                    <div class="modal-body">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="login" class="form-control" placeholder="Login">
+                        </div>
+                         <div class="form-group input-group">
+                             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
                     </div>
-                     <div class="form-group input-group">
-                         <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" >Zaloguj się</button>
                     </div>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" >Zaloguj się</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>    
