@@ -1,3 +1,10 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['logged'])){
+        header('Location: index.php');
+    }
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -49,60 +56,87 @@
 <!--formularz########################-->
 <!--###############################-->
  
-<h3 id="subject">Dodaj przychód</h3>
+<h3 id="subject">Dodaj wydatek</h3>
 <div class="container">
-    <div class="col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10">
-      <form>
+    
+    <div class="col-md-offset-2 col-md-8">
+      <form >
         <div class="form-group">
             <div class="row">
-              <label for="kwota" class="col-md-2">
-                Kwota:
-              </label>
-                  <div class="col-md-10 input-group">
+                  <label for="kwota" class="col-md-2 col-lg-2">
+                    Kwota:
+                  </label>
+                  <div class="col-md-10 col-lg-10 input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-usd"></span></span>
                     <input type="text" class="form-control" id="kwota" placeholder="Wprowadź kwotę przychodu">
                   </div>
-            </div>
+                </div>
         </div>
-          
+        
+    <div class="row">
         <div class="form-group">
-        <div class="row">
-          <label for="date" class="col-md-2">
-        Data uzyskania:
+          <label for="date" class="col-md-2 col-lg-2">
+        Data:
           </label>
-          <div class="col-md-10 input-group">
+          <div class="col-md-10 col-lg-10 input-group">
             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar"></span></span>
             <input class="form-control" type="text" id="date" name="date" placeholder="YYYY-MM-DD" />
-            </div>
           </div>
         </div>  
- 
-  <div class="form-group">
-    <div class="row">
-      <h4 class="col-md-2">
-        Kategoria:
-      </h4>
-      <div class="col-md-10">
-        <label class="radio">
-          <input type="radio" name="kategoria" id="wynagrodzenie" value="wynagrodzenie" checked>
-          Wynagrodzenie
-        </label>
-        <label class="radio">
-          <input type="radio" name="kategoria" id="odestki" value="odestki">
-          Odsetki bankowe
-        </label>
-        <label class="radio">
-          <input type="radio" name="kategoria" id="allegro" value="allegro">
-          Sprzedaż na Allegro
-        </label>
-        <label class="radio">
-          <input type="radio" name="kategoria" id="inne" value="inne">
-          Inne
-        </label>
         </div>
+    
+    <div class="form-group">
+        <div class="row">
+          <h4 class="col-md-2">
+            Sposób płatności:
+          </h4>
+          <div class="col-md-10 col-lg-10">
+            <label class="radio">
+              <input type="radio" name="platnosc" id="gotowka" value="gotowka" checked>
+              Gotówka
+            </label>
+            <label class="radio">
+              <input type="radio" name="platnosc" id="debetowa" value="debetowa">
+              Karta debetowa
+            </label>
+            <label class="radio">
+              <input type="radio" name="platnosc" id="kredytowa" value="kredytowa">
+              Karta kredytowa
+            </label>
+         </div>
       </div>
     </div>
-    
+          
+
+          
+    <div class="form-group">
+    <div class="row">
+    <label for="kategoria" class="col-md-2 col-lg-2">Kategoria:</label>
+        <div class="col-md-10 col-lg-10">
+            <select class="form-control" id="kategoria">
+              <option>Jedzenie</option>
+              <option>Mieszkanie</option>
+              <option>Transport</option>
+              <option>Telekomunikacja</option>
+              <option>Opieka zdrowotna</option>
+              <option>Ubranie</option>
+              <option>Higiena</option>
+              <option>Dzieci</option>
+              <option>Rozrywka</option>
+              <option>Szkolenia</option>
+              <option>Książki</option>
+              <option>Oszczędności</option>
+              <option>Na złotą jesień, czyli emeryturę</option>
+              <option>Spłata długów</option>
+              <option>Darowizna</option>
+              <option>Inne wydatki</option>
+            </select>
+        </div>
+    </div>
+  </div>
+          
+
+          
     <div class="form-group shadow-textarea">
         <div class="row">
             <label for="komentarz" class="col-md-2 col-lg-2">Komentarz:</label>
@@ -112,19 +146,21 @@
             </div>
         </div>
  
-    <div class="row">
-      <div class="col-md-offset-2 col-md-10">
-        <button type="submit" class="btn btn-success btn-sm">
-          Dodaj
-        </button>
-        <button type="submit" class="btn btn-danger btn-sm">
-          Anuluj
-        </button>
-      </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success btn-sm">
+                  Dodaj
+                </button>
+                <button type="submit" class="btn btn-danger btn-sm">
+                  Anuluj
+                </button>
+            </div>
+        </div>
     </div>
   </form>
-  </div>
-</div>      
+    </div>
+  </div>      
   
  
 <!--###############################-->

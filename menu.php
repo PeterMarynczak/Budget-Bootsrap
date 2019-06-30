@@ -1,3 +1,11 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['logged'])){
+        header('Location: index.php');
+    }
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -38,14 +46,20 @@
             <li class="nav-item"><a class="nav-link" href="wydatek.html"><span class="glyphicon glyphicon-minus"></span> Dodaj wydatek</a></li>
             <li class="nav-item"><a class="nav-link" href="bilans.html"><span class="glyphicon glyphicon-usd"></span> Przeglądaj bilans</a></li>
             <li class="nav-item"><a class="nav-link" href="ustawienia.html"><span class="glyphicon glyphicon-wrench"></span> Ustawienia</a></li> 
-            <li class="nav-item social pull-right"><a class="nav-link" href="#wyloguj"><span class="glyphicon glyphicon-off"></span> Wyloguj się</a></li>
+            <li class="nav-item social pull-right"><a class="nav-link" href="wyloguj.php"><span class="glyphicon glyphicon-off"></span> Wyloguj się</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>  
-</header>         
+</header>  
+      
     
-  
+<?php
+      echo '<div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 col-xs-offset-3 col-sm-offset-5 col-md-offset-5 col-lg-offset-5">';
+      echo "<p>Witaj ".$_SESSION['user']."!";
+      echo '</div>';
+?>
+      
     <!--###############################-->
     <!--Carousel ######################-->
         <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">

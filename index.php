@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
+    
+    header ('Location: menu.php');
+    exit();
+}
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -21,7 +33,7 @@
     <nav class="navbar navbar-default" id="logo_glowne">
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <div id="logo">
                             <img src="images/logo.png" alt="brand_logo" class="img-responsive">
                         </div>
@@ -70,32 +82,40 @@
 
     <div class="container jumbotron text-center" id="login-panel">
         <h3 id="join-h3">Dołącz do budgety.pl już dziś!</h3>
+        
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Logowanie</button>
         
         <button type="button" class="btn btn-success but-reg" data-toggle="modal" data-target="#regModal">Rejestracja</button>
+        
+        <?php
+            if(isset($_SESSION['error'])) echo $_SESSION['error'];
+        ?>
+        
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Zaloguj się</h3>
+                    <h3 class="modal-title">LOGOWANIE</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 
-                <div class="modal-body">
-                    <div class="form-group input-group">
-                        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="username" class="form-control" placeholder="Username">
+                <form action="zaloguj.php" method="post">
+                    <div class="modal-body">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="login" class="form-control" placeholder="Login">
+                        </div>
+                         <div class="form-group input-group">
+                             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
                     </div>
-                     <div class="form-group input-group">
-                         <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" >Zaloguj się</button>
                     </div>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" >Zaloguj się</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>    
