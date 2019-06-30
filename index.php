@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -70,9 +76,15 @@
 
     <div class="container jumbotron text-center" id="login-panel">
         <h3 id="join-h3">Dołącz do budgety.pl już dziś!</h3>
+        
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Logowanie</button>
         
         <button type="button" class="btn btn-success but-reg" data-toggle="modal" data-target="#regModal">Rejestracja</button>
+        
+        <?php
+            if(isset($_SESSION['error'])) echo $_SESSION['error'];
+        ?>
+        
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">

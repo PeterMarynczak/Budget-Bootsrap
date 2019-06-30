@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -43,9 +46,15 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>  
-</header>         
+</header>  
+      
     
-  
+<?php
+      echo '<div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 col-xs-offset-3 col-sm-offset-5 col-md-offset-5 col-lg-offset-5">';
+      echo "<p>Witaj ".$_SESSION['user']."!";
+      echo '</div>';
+?>
+      
     <!--###############################-->
     <!--Carousel ######################-->
         <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">
