@@ -2,6 +2,11 @@
     
     session_start();
 
+    if ((!isset($_POST['login'])) || (!isset($_POST['password']))) {
+        header ('Location: index.php');
+        exit();
+    }
+
     require_once "connect.php"; 
 
     $connection = @new mysqli($host,$db_user,$db_password,$db_name);
@@ -22,8 +27,12 @@
             $users_amount = $result->num_rows;
             if($users_amount > 0) {
                 
+                $_SESSION['logged'] = true;
+                
                 $row = $result->fetch_assoc();
                 $_SESSION['user'] = $row['username'];
+                $_SESSION['id'] = $row['id'];
+                
                 
                 unset($_SESSION[error]);
                 $result->free_result();
@@ -36,8 +45,6 @@
                 
             }
         }
-        
-        
         
         $connection->close();
     }

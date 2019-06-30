@@ -2,6 +2,12 @@
 
 session_start();
 
+if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
+    
+    header ('Location: menu.php');
+    exit();
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -27,7 +33,7 @@ session_start();
     <nav class="navbar navbar-default" id="logo_glowne">
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <div id="logo">
                             <img src="images/logo.png" alt="brand_logo" class="img-responsive">
                         </div>
