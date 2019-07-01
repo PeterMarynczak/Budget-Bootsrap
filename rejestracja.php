@@ -33,12 +33,12 @@ if (isset($_POST['email'])) {
     
     if ((strlen($pass1) < 8) || (strlen($pass1) > 20)) {
 			$everything_OK = false;
-			$_SESSION['e_haslo'] = "Hasło musi posiadać od 8 do 20 znaków!";
+			$_SESSION['e_pass'] = "Hasło musi posiadać od 8 do 20 znaków!";
 		}
     
     if ($pass1 != $pass2) {
 			$everything_OK = false;
-			$_SESSION['e_haslo'] = "Podane hasła nie są identyczne!";
+			$_SESSION['e_pass'] = "Podane hasła nie są identyczne!";
 		}	
     
     if ($everything_OK == true) {
