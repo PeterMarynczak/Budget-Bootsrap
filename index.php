@@ -64,11 +64,11 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
                 </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
                         <h3>Przychody</h3>
-                        <h5><span class="glyphicon glyphicon-ok"></span>Archiwizuj każdy zastrzyk finansowy</h5>
+                        <h5><span class="glyphicon glyphicon-ok"></span> Archiwizuj każdy zastrzyk finansowy</h5>
                         <p>Miej dostęp do archiwum przychodów, z laptopa, z telefonu. Bądź na bierząco z własnym rachunkiem</p>
 
                         <h3>Wydatki</h3>
-                        <h5><span class="glyphicon glyphicon-ok"></span>Kontroluj odpływ finansów</h5>                    
+                        <h5><span class="glyphicon glyphicon-ok"></span> Kontroluj odpływ finansów</h5>                    
                         <p>Pamiętaj, że oszczędzania polega na wydawaniu mniej niż zarabiasz,
                         różnicę inwestuj</p>
                     </div>
@@ -88,13 +88,24 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
         <button type="button" class="btn btn-success but-reg" data-toggle="modal" data-target="#regModal">Rejestracja</button>
         
         <?php
-            if(isset($_SESSION['error'])) echo $_SESSION['error'];
+            if(isset($_SESSION['error'])){
+                
+               echo '<div class="error">'.$_SESSION['error'].'</div>'; 
+               unset ($_SESSION['error']);
+            } 
         ?>
+        <?php
+			if (isset($_SESSION['e_nick'])) {
+                
+				echo '<div class="error">'.$_SESSION['e_nick'].'</div>';
+				unset($_SESSION['e_nick']);
+			}
+		?>
         
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">
-        <div class="modal-dialog ">
+        <div class="modal-dialog login-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">LOGOWANIE</h3>
@@ -108,12 +119,11 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
                         </div>
                          <div class="form-group input-group">
                              <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Hasło">
                         </div>
-                    </div>
-
-                    <div class="modal-footer">
+                        <div class="modal-footer">
                         <button type="submit" class="btn btn-success" >Zaloguj się</button>
+                    </div>
                     </div>
                 </form>
             </div>
@@ -124,23 +134,31 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Zarejestruj się</h3>
+                    <h3 class="modal-title">REJESTRACJA</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 
+            <form action="rejestracja.php" method="post">
                 <div class="modal-body">
                     <div class="form-group input-group">
-                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="username" class="form-control" placeholder="Username">
+                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="nick" class="form-control" placeholder="Login">
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-envelope"></span></span><input type="text" name="email" class="form-control" placeholder="Email">
+                    </div>
+                   <div class="form-group input-group">
+                         <span class="input-group-addon" id="basic-addon4"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password" name="pass1" class="form-control" placeholder="Hasło">
                     </div>
                      <div class="form-group input-group">
                          <span class="input-group-addon" id="basic-addon4"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="pass2" class="form-control" placeholder="Powtórz hasło">
                     </div>
-                </div>
-                
-                <div class="modal-footer">
+                    <div class="modal-footer">
                     <button type="submit" class="btn btn-success but-reg">Zarejestruj się</button>
                 </div>
+                </div>
+            </form>
             </div>
         </div>
     </div>    

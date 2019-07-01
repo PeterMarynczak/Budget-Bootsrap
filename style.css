@@ -56,10 +56,14 @@ margin-right: 2rem;
 background-color: #E87E04;
 }
 
+
 .but-reg:hover{
 background-color: #D76D03;
 }
 
+.error{
+    color: red;
+}
 
 #join-h3{
 margin-top: 0.5rem;
@@ -68,7 +72,7 @@ margin-top: 0.5rem;
 .modal-dialog {
 margin-top: 200px;
 width: 360px;
-height: 500px !important;
+height: 600px;
 }
 
 .modal-content {
@@ -403,3 +407,11 @@ table.table td .add {
 
 
 
+
+
+
+
+
+.login-dialog {
+    height: 450px; !important;
+}
