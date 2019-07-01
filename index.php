@@ -101,6 +101,13 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
 				unset($_SESSION['e_nick']);
 			}
 		?>
+        <?php
+			if (isset($_SESSION['e_email']))
+			{
+				echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+				unset($_SESSION['e_email']);
+			}
+		?>
         
     </div>
 
