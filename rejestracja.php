@@ -2,6 +2,10 @@
 
 session_start();
 
+if (isset($_SESSION['logged'])){
+        header('Location: index.php');
+    }
+
 if (isset($_POST['email'])) {
     
     header ('Location: index.php');
@@ -74,7 +78,17 @@ if (isset($_POST['email'])) {
 					$_SESSION['e_nick']="Istnieje już gracz o takim nicku! Wybierz inny";
 				}	
             
-            
+            if ($everything_OK == true) {
+                
+                if ($connection->query("INSERT INTO users VALUES (NULL, '$nick', '$pass_hash', '$email')")) {
+						$_SESSION['successful_reg']=true;
+						header('Location: witamy.php');
+					}
+					else {
+						throw new Exception($connection->error);
+					}
+            }
+         
             $connection->close();
         }
         
@@ -84,13 +98,7 @@ if (isset($_POST['email'])) {
         echo '<br />Informacja developerska: '.$e;
         
     }
-    
-    
-    if ($everything_OK == true) {
-        
-       echo "Udana walidacja"; exit();
-    }
-    
+
 }
 
 ?>
