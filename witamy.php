@@ -1,13 +1,19 @@
 <?php
 
-session_start();
-
-if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
-    
-    header ('Location: menu.php');
-    exit();
-}
-
+	session_start();
+	
+	if (!isset($_SESSION['successful_reg'])) {
+		header('Location: index.php');
+		exit();
+	}
+	else {
+		unset($_SESSION['successful_reg']);
+	}
+	
+	if (isset($_SESSION['e_nick'])) unset($_SESSION['e_nick']);
+	if (isset($_SESSION['e_email'])) unset($_SESSION['e_email']);
+	if (isset($_SESSION['e_pass'])) unset($_SESSION['e_pass']);
+	
 ?>
 
 <!DOCTYPE HTML>
@@ -81,41 +87,10 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
     <!--###############################-->
 
     <div class="container jumbotron text-center" id="login-panel">
-        <h3 id="join-h3">Dołącz do budgety.pl już dziś!</h3>
+        <h3 id="join-h3">Dziękujemy za rejestrację w serwisie! Możesz już zalogować się na swoje konto!</h3>
         
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Logowanie</button>
-        
-        <button type="button" class="btn btn-success but-reg" data-toggle="modal" data-target="#regModal">Rejestracja</button>
-        
-        <?php
-            if(isset($_SESSION['error'])){
-                
-               echo '<div class="error">'.$_SESSION['error'].'</div>'; 
-               unset ($_SESSION['error']);
-            } 
-        ?>
-        <?php
-			if (isset($_SESSION['e_nick'])) {
-                
-				echo '<div class="error">'.$_SESSION['e_nick'].'</div>';
-				unset($_SESSION['e_nick']);
-			}
-		?>
-        <?php
-			if (isset($_SESSION['e_email']))
-			{
-				echo '<div class="error">'.$_SESSION['e_email'].'</div>';
-				unset($_SESSION['e_email']);
-			}
-		?>
-        <?php
-			if (isset($_SESSION['e_pass']))
-			{
-				echo '<div class="error">'.$_SESSION['e_pass'].'</div>';
-				unset($_SESSION['e_pass']);
-			}
-		?>
-        
+ 
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">
@@ -144,38 +119,6 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
         </div>
     </div>    
     
-      <div class="modal fade" role="dialog" id="regModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">REJESTRACJA</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                
-            <form action="rejestracja.php" method="post">
-                <div class="modal-body">
-                    <div class="form-group input-group">
-                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-user"></span></span><input type="text" name="nick" class="form-control" placeholder="Login">
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-envelope"></span></span><input type="text" name="email" class="form-control" placeholder="Email">
-                    </div>
-                   <div class="form-group input-group">
-                         <span class="input-group-addon" id="basic-addon4"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input type="password" name="pass1" class="form-control" placeholder="Hasło">
-                    </div>
-                     <div class="form-group input-group">
-                         <span class="input-group-addon" id="basic-addon4"><span class="glyphicon glyphicon-lock"></span></span>
-                        <input type="password" name="pass2" class="form-control" placeholder="Powtórz hasło">
-                    </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-success but-reg">Zarejestruj się</button>
-                </div>
-                </div>
-            </form>
-            </div>
-        </div>
-    </div>    
     
     <hr>
     <section id="stopka">
