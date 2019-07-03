@@ -81,8 +81,17 @@ if (isset($_POST['email'])) {
             if ($everything_OK == true) {
                 
                 if ($connection->query("INSERT INTO users VALUES (NULL, '$nick', '$pass_hash', '$email')")) {
+                    
 						$_SESSION['successful_reg']=true;
+                    
+                        $connection->query("INSERT INTO payment_methods_assigned_to_users (user_id, name) SELECT u.id, p.name FROM users u, payment_methods_default p WHERE u.username = '$nick'");
+                    
+                        $connection->query("INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT u.id, e.name FROM users u, expenses_category_default e WHERE u.username = '$nick'");
+                    
+                        $connection->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT u.id, i.name FROM users u, incomes_category_default i WHERE u.username = '$nick'");
+                                            
 						header('Location: witamy.php');
+                    
 					}
 					else {
 						throw new Exception($connection->error);
