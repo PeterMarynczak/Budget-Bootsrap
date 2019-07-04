@@ -9,6 +9,7 @@
     if (isset($_POST['price'])) {
         
         $correctly_added_income = true;
+        $id = $_SESSION['id'];
         
         $price = $_POST['price'];
         $price = str_replace(",",".",$price); 
@@ -16,21 +17,46 @@
         
         if ($price == 0) {
             $correctly_added_income = false;
-            $_SESSION['e_price']= "Wprowadzona kwota nie jest liczbą";
-           // exit();
         }
         
         $date = $_POST['date'];
-        //echo $date."<br/>";
-        
         $category = $_POST['category'];
-        //echo $category."<br/>";
-        
         $comment = $_POST['comment'];
-        //echo $comment."<br/>";
+
+        
+    require_once "connect.php";
+    mysqli_report(MYSQLI_REPORT_STRICT);
+        
+    try {
+        $connection = new mysqli($host, $db_user, $db_password, $db_name);
+        
+        if ($connection->connect_errno!=0) {
+				throw new Exception(mysqli_connect_errno());
+			} else {
+            
+            if ($correctly_added_income == true) {
+                
+                if ($connection->query("INSERT INTO incomes(user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment)
+                                        SELECT u.id, i.id, '$price', '$date', '$comment'
+                                        FROM users u, incomes_category_assigned_to_users i WHERE u.id = '$id' AND i.name = '$category'")) {
+                    
+                $_SESSION['successful_income'] = true;    
+
+                } else {
+                    throw new Exception($connection->error);
+                }
+            }
+             $connection->close();
+        }
+
+        } catch(Exception $e) {
+        echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+        echo '<br />Informacja developerska: '.$e;
+      }
     }
     
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -83,6 +109,12 @@
 <!--###############################-->
  
 <h3 id="subject">Dodaj przychód</h3>
+<?php
+    if (isset($_SESSION['successful_income'])) {
+        echo '<h4 style="text-align: center; color: green">Przychód został dodany pomyślnie</h4>';
+        unset($_SESSION['successful_income']);
+    }
+?>
 <div class="container">
     <div class="col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10">
         <!--action="test.php"-->
@@ -125,19 +157,19 @@
           </h4>
           <div class="col-md-10">
             <label class="radio">
-              <input type="radio" name="category" id="wynagrodzenie" value="wynagrodzenie" checked>
+              <input type="radio" name="category" id="Salary" value="Salary" checked>
               Wynagrodzenie
             </label>
             <label class="radio">
-              <input type="radio" name="category" id="odestki" value="odestki">
+              <input type="radio" name="category" id="Interest" value="Interest">
               Odsetki bankowe
             </label>
             <label class="radio">
-              <input type="radio" name="category" id="allegro" value="allegro">
+              <input type="radio" name="category" id="Allegro" value="Allegro">
               Sprzedaż na Allegro
             </label>
             <label class="radio">
-              <input type="radio" name="category" id="inne" value="inne">
+              <input type="radio" name="category" id="Another" value="Another">
               Inne
             </label>
             </div>
