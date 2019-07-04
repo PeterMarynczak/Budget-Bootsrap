@@ -38,7 +38,7 @@
                 
                 if ($connection->query("INSERT INTO incomes(user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment)
                                         SELECT u.id, i.id, '$price', '$date', '$comment'
-                                        FROM users u, incomes_category_assigned_to_users i WHERE u.id = '$id' AND i.name = '$category'")) {
+                                        FROM users u, incomes_category_assigned_to_users i WHERE u.id = '$id' AND i.user_id = '$id' AND i.name = '$category'")) {
                     
                 $_SESSION['successful_income'] = true;    
 
