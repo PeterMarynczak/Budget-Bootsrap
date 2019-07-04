@@ -39,7 +39,6 @@
                 $_SESSION['user'] = $row['username'];
                 $_SESSION['id'] = $row['id'];
                 
-                
                 unset($_SESSION[error]);
                 $result->free_result();
                 header('Location: menu.php');
