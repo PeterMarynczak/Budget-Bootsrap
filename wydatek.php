@@ -4,7 +4,66 @@
     if (!isset($_SESSION['logged'])){
         header('Location: index.php');
     }
+
+    if (isset($_POST['amount'])) {
+        
+        $correctly_added_expense = true;
+        $id = $_SESSION['id'];
+        
+        $amount = $_POST['amount'];
+        $amount = str_replace(",",".",$amount); 
+        $amount = round($amount, 2);
+        
+        if ($amount == 0) {
+            $correctly_added_expense = false;
+            $_SESSION['e_amount']= "Wprowadzona kwota nie jest liczbą";
+        }
+        
+        $date = $_POST['date'];
+        $payment = $_POST['payment'];
+        $category = $_POST['category'];
+        $comment = $_POST['comment'];
+        
+        require_once "connect.php";
+        mysqli_report(MYSQLI_REPORT_STRICT);
+        
+        try {
+        $connection = new mysqli($host, $db_user, $db_password, $db_name);
+        
+        if ($connection->connect_errno!=0) {
+				throw new Exception(mysqli_connect_errno());
+			} else {
+            
+            if ($correctly_added_expense == true) {
+                
+                if ($connection->query("INSERT INTO expenses(user_id, expense_category_assigned_to_user_id, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment)
+SELECT u.id, e.id, p.id ,'$amount', '$date', '$comment'
+FROM users u, expenses_category_assigned_to_users e, payment_methods_assigned_to_users p 
+WHERE u.id = '$id' 
+AND e.user_id = '$id' 
+AND p.user_id = '$id' 
+AND e.name = '$category' 
+AND p.name = '$payment'")) { 
+                    
+                $_SESSION['successful_expense'] = true;
+                unset($_POST['amount']);
+
+                } else {
+                    throw new Exception($connection->error);
+                }
+            }
+             $connection->close();
+        }
+
+        } catch(Exception $e) {
+        echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+        echo '<br />Informacja developerska: '.$e;
+      }
+    }
+  
+
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -57,19 +116,33 @@
 <!--###############################-->
  
 <h3 id="subject">Dodaj wydatek</h3>
+<?php
+    if (isset($_SESSION['successful_expense'])) {
+        echo '<h4 style="text-align: center; color: green">Wydatek został dodany pomyślnie</h4>';
+        unset($_SESSION['successful_expense']);
+        if (isset($_SESSION['e_amount'])) unset($_SESSION['e_amount']);
+        
+    }
+?>
 <div class="container">
-    
     <div class="col-md-offset-2 col-md-8">
-      <form >
+      <form method="post">
         <div class="form-group">
             <div class="row">
-                  <label for="kwota" class="col-md-2 col-lg-2">
+                  <label for="amount" class="col-md-2 col-lg-2">
                     Kwota:
                   </label>
                   <div class="col-md-10 col-lg-10 input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-usd"></span></span>
-                    <input type="text" class="form-control" id="kwota" placeholder="Wprowadź kwotę przychodu">
+                    <input type="text" class="form-control" name="amount" placeholder="Wprowadź kwotę wydatku" required>
                   </div>
+<?php
+    if (isset($_SESSION['e_amount'])) {
+
+        echo '<div class="error">'.$_SESSION['e_amount'].'</div>';
+        unset($_SESSION['e_amount']);
+    }
+?>
                 </div>
         </div>
         
@@ -80,7 +153,7 @@
           </label>
           <div class="col-md-10 col-lg-10 input-group">
             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input class="form-control" type="text" id="date" name="date" placeholder="YYYY-MM-DD" />
+            <input class="form-control" type="text" id="date" name="date" placeholder="YYYY-MM-DD" required/>
           </div>
         </div>  
         </div>
@@ -91,57 +164,54 @@
             Sposób płatności:
           </h4>
           <div class="col-md-10 col-lg-10">
-            <label class="radio">
-              <input type="radio" name="platnosc" id="gotowka" value="gotowka" checked>
+            <label for="payment" class="radio">
+              <input type="radio" name="payment" id="gotowka" value="Cash" checked>
               Gotówka
             </label>
             <label class="radio">
-              <input type="radio" name="platnosc" id="debetowa" value="debetowa">
+              <input type="radio" name="payment" id="debetowa" value="Debit Card">
               Karta debetowa
             </label>
             <label class="radio">
-              <input type="radio" name="platnosc" id="kredytowa" value="kredytowa">
+              <input type="radio" name="payment" id="kredytowa" value="Credit Card">
               Karta kredytowa
             </label>
          </div>
       </div>
     </div>
           
-
-          
+  
     <div class="form-group">
     <div class="row">
-    <label for="kategoria" class="col-md-2 col-lg-2">Kategoria:</label>
+    <label for="category" class="col-md-2 col-lg-2">Kategoria:</label>
         <div class="col-md-10 col-lg-10">
-            <select class="form-control" id="kategoria">
-              <option>Jedzenie</option>
-              <option>Mieszkanie</option>
-              <option>Transport</option>
-              <option>Telekomunikacja</option>
-              <option>Opieka zdrowotna</option>
-              <option>Ubranie</option>
-              <option>Higiena</option>
-              <option>Dzieci</option>
-              <option>Rozrywka</option>
-              <option>Szkolenia</option>
-              <option>Książki</option>
-              <option>Oszczędności</option>
-              <option>Na złotą jesień, czyli emeryturę</option>
-              <option>Spłata długów</option>
-              <option>Darowizna</option>
-              <option>Inne wydatki</option>
+            <select class="form-control" name="category" id="kategoria">
+              <option value="Transport">Transport</option>
+              <option value="Books">Książki</option>
+              <option value="Food">Jedzenie</option>
+              <option value="Apartments">Mieszkanie</option>
+              <option value="Telecommunication">Telekomunikacja</option>
+              <option value="Health">Opieka zdrowotna</option>
+              <option value="Clothes">Ubranie</option>
+              <option value="Hygiene">Higiena</option>
+              <option value="Kids">Dzieci</option>
+              <option value="Recreation">Rozrywka</option>
+              <option value="Trip">Podróż</option>
+              <option value="Savings">Oszczędności</option>
+              <option value="For Retirement">Na złotą jesień, czyli emeryturę</option>
+              <option value="Debt Repayment">Spłata długów</option>
+              <option value="Gift">Darowizna</option>
+              <option value="Another">Inne wydatki</option>
             </select>
         </div>
     </div>
   </div>
-          
 
-          
     <div class="form-group shadow-textarea">
         <div class="row">
-            <label for="komentarz" class="col-md-2 col-lg-2">Komentarz:</label>
+            <label for="comment" class="col-md-2 col-lg-2">Komentarz:</label>
                 <div class="col-md-10 col-lg-10">
-                    <textarea class="form-control z-depth-1" id="komentarz" rows="1"></textarea>
+                    <textarea class="form-control z-depth-1" name="comment" id="komentarz" rows="1"></textarea>
                 </div>
             </div>
         </div>
@@ -152,7 +222,7 @@
                 <button type="submit" class="btn btn-success btn-sm">
                   Dodaj
                 </button>
-                <button type="submit" class="btn btn-danger btn-sm">
+                <button type="reset" class="btn btn-danger btn-sm">
                   Anuluj
                 </button>
             </div>

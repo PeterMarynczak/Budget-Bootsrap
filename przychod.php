@@ -41,7 +41,8 @@
                                         SELECT u.id, i.id, '$price', '$date', '$comment'
                                         FROM users u, incomes_category_assigned_to_users i WHERE u.id = '$id' AND i.user_id = '$id' AND i.name = '$category'")) {
                     
-                $_SESSION['successful_income'] = true;    
+                $_SESSION['successful_income'] = true;
+                unset($_POST['price']);
 
                 } else {
                     throw new Exception($connection->error);
@@ -114,6 +115,8 @@
     if (isset($_SESSION['successful_income'])) {
         echo '<h4 style="text-align: center; color: green">Przychód został dodany pomyślnie</h4>';
         unset($_SESSION['successful_income']);
+        if (isset($_SESSION['e_price'])) unset($_SESSION['e_price']);
+        
     }
 ?>
 <div class="container">
