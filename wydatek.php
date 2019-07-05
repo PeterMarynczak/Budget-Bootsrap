@@ -36,9 +36,14 @@
             
             if ($correctly_added_expense == true) {
                 
-                /*if ($connection->query("INSERT INTO incomes(user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment)
-                                        SELECT u.id, i.id, '$price', '$date', '$comment'
-                                        FROM users u, incomes_category_assigned_to_users i WHERE u.id = '$id' AND i.user_id = '$id' AND i.name = '$category'")) { */
+                if ($connection->query("INSERT INTO expenses(user_id, expense_category_assigned_to_user_id, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment)
+SELECT u.id, e.id, p.id ,'$amount', '$date', '$comment'
+FROM users u, expenses_category_assigned_to_users e, payment_methods_assigned_to_users p 
+WHERE u.id = '$id' 
+AND e.user_id = '$id' 
+AND p.user_id = '$id' 
+AND e.name = '$category' 
+AND p.name = '$payment'")) { 
                     
                 $_SESSION['successful_expense'] = true;
                 unset($_POST['amount']);
@@ -111,6 +116,14 @@
 <!--###############################-->
  
 <h3 id="subject">Dodaj wydatek</h3>
+<?php
+    if (isset($_SESSION['successful_expense'])) {
+        echo '<h4 style="text-align: center; color: green">Wydatek został dodany pomyślnie</h4>';
+        unset($_SESSION['successful_expense']);
+        if (isset($_SESSION['e_amount'])) unset($_SESSION['e_amount']);
+        
+    }
+?>
 <div class="container">
     <div class="col-md-offset-2 col-md-8">
       <form method="post">

@@ -115,6 +115,8 @@
     if (isset($_SESSION['successful_income'])) {
         echo '<h4 style="text-align: center; color: green">Przychód został dodany pomyślnie</h4>';
         unset($_SESSION['successful_income']);
+        if (isset($_SESSION['e_price'])) unset($_SESSION['e_price']);
+        
     }
 ?>
 <div class="container">
