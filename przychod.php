@@ -17,6 +17,7 @@
         
         if ($price == 0) {
             $correctly_added_income = false;
+            $_SESSION['e_price']= "Wprowadzona kwota nie jest liczbą";
         }
         
         $date = $_POST['date'];
