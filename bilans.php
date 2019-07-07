@@ -3,8 +3,14 @@
 
     if (!isset($_SESSION['logged'])){
         header('Location: index.php');
+        exit();
     }
+
+  
+        
+        
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -56,25 +62,21 @@
 <!--###############################-->
 <!--formularz########################-->
 <!--###############################-->
- 
+<form method="post">
+ <div class="col-xs-offset-5 col-sm-7 col-sm-offset-9 col-sm-3 col-md-offset-9 col-md-3 col-lg-offset-10 col-lg-2 text-right"> 
+       <label for="month">Wybierz zakres:</label>
+            <select class="form-control" name="month">
+                <option value="current_month">Bieżący miesiąc</option>
+                <option value="last_month">Poprzedni miesiąc</option>
+                <option value="current_year">Bierzący rok</option>
+              
+                <option data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></option>
+            </select>          
+        </div>     
+</form>  
 
-
-<!-- Single button -->
-<div class="col-md-4 col-md-offset-8 col-lg-offset-8 col-lg-4 text-right"> 
-    <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Wybierz zakres <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu text-left">
-            <li><a href="#">Bieżący miesiąc</a></li>
-            <li><a href="#">Poprzedni miesiąc</a></li>
-            <li><a href="#">Bierzący rok</a></li>
-            <li role="separator" class="divider"></li>
-            <li data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></li>
-          </ul>
-    </div>
-</div>
       
+
 <!--################################################-->
 <!--modal window zakred dat ########################-->
 <!--################################################-->
