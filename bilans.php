@@ -5,9 +5,21 @@
         header('Location: index.php');
         exit();
     }
-
-  
+    
+    if (isset($_POST['month'])) {
         
+        $correctly_added_income = true;
+        $id = $_SESSION['id'];
+        $month = $_POST['month'];
+        
+        
+        $month = $_POST['month'];
+        $date1 = $_POST['date1'];
+        $date2 = $_POST['date2'];
+        echo $date1;
+        echo $date2;
+    }
+  
         
 ?>
 
@@ -63,45 +75,54 @@
 <!--formularz########################-->
 <!--###############################-->
 <form method="post">
- <div class="col-xs-offset-5 col-sm-7 col-sm-offset-9 col-sm-3 col-md-offset-9 col-md-3 col-lg-offset-10 col-lg-2 text-right"> 
-       <label for="month">Wybierz zakres:</label>
-            <select class="form-control" name="month">
+    <div class="form-group">
+        <div class="col-xs-offset-5 col-sm-7 col-sm-offset-9 col-sm-3 col-md-offset-9 col-md-3 col-lg-offset-10 col-lg-2 text-right"> 
+           <label for="month">Wybierz zakres:</label>
+              <select class="form-control" name="month" id="range-style">
                 <option value="current_month">Bieżący miesiąc</option>
                 <option value="last_month">Poprzedni miesiąc</option>
                 <option value="current_year">Bierzący rok</option>
-              
-                <option data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></option>
-            </select>          
-        </div>     
-</form>  
+                <option value="custom" data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></option>
+            </select> 
+            <div class="row">
+          <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success btn-sm">
+              Potwierdź
+            </button>
+          </div>
+        </div>
+        </div>
+    </div>     
 
-      
+
 
 <!--################################################-->
 <!--modal window zakred dat ########################-->
 <!--################################################-->
-      
+    
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog narrow-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Zakres dat</h4>
               </div>
+            
               <div class="modal-body">
                 <div class="input-group input-daterange">
-                    <input type="text" class="form-control" name="date">
+                    <input type="text" class="form-control" id ="date" name="date1">
                     <div class="input-group-addon">do</div>
-                    <input type="text" class="form-control" name="date">
+                    <input type="text" class="form-control" id ="date" name="date2">
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                <button type="button" class="btn btn-primary">Zapisz</button>
+                <button type="submit" class="btn btn-default">OK</button>
               </div>
+         
             </div>
           </div>
       </div>
+   </form>  
       
       
  <div class="container">
