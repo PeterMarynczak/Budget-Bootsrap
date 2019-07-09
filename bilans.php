@@ -8,16 +8,62 @@
     
     if (isset($_POST['month'])) {
         
-        $correctly_added_income = true;
+        require_once "connect.php";
+        mysqli_report(MYSQLI_REPORT_STRICT);
+        
+        $bilance = true;
         $id = $_SESSION['id'];
         $month = $_POST['month'];
         
+        if($month == "current_month"){
+              
+            $first_day_of_month = date('Y-m-01');
+            $last_day_of_month = date('Y-m-t');
+            
+            try {
+            $connection = new mysqli($host, $db_user, $db_password, $db_name);
+                
+            if ($connection->connect_errno!=0) {
+				throw new Exception(mysqli_connect_errno());
+			} else {
+            
+                if ($bilance == true) {
+                
+                if ($sqlQuery = $connection->query("SELECT i.amount, i.date_of_income, ic.name 
+FROM incomes i, incomes_category_assigned_to_users ic 
+WHERE i.user_id = '$id' 
+AND ic.id = i.income_category_assigned_to_user_id 
+AND date_of_income >= '$first_day_of_month' 
+AND date_of_income <= '$last_day_of_month'")) {
+                    
+                echo $first_day_of_month."<br/>";
+                echo $last_day_of_month;    
+                    
+                $_SESSION['successful_bilance'] = true;
+                unset($_POST['month']);
+
+                    } else {
+                        throw new Exception($connection->error);
+                    }
+                }
+                 $connection->close();
+                }
+
+            } catch(Exception $e) {
+            echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+            echo '<br />Informacja developerska: '.$e;
+            }
+        }
         
-        $month = $_POST['month'];
-        $date1 = $_POST['date1'];
-        $date2 = $_POST['date2'];
-        echo $date1;
-        echo $date2;
+        if($month == "custom"){
+           $date1 = $_POST['date1'];
+            $date2 = $_POST['date2'];
+            echo $date1."<br/>";
+            echo $date2;     
+        }
+        
+       
+        
     }
   
         
@@ -124,6 +170,7 @@
       </div>
    </form>  
       
+   
       
  <div class="container">
         <div class="table-wrapper">
