@@ -29,23 +29,52 @@
             
                 if ($bilance == true) {
                 
-                if ($sqlQuery = $connection->query("SELECT i.amount, i.date_of_income, ic.name 
+                if ($query = $connection->query("SELECT i.amount, i.date_of_income, ic.name 
 FROM incomes i, incomes_category_assigned_to_users ic 
 WHERE i.user_id = '$id' 
 AND ic.id = i.income_category_assigned_to_user_id 
 AND date_of_income >= '$first_day_of_month' 
 AND date_of_income <= '$last_day_of_month'")) {
+                 
+                $query_income = "SELECT i.amount, i.date_of_income, ic.name 
+FROM incomes i, incomes_category_assigned_to_users ic 
+WHERE i.user_id = '$id' 
+AND ic.id = i.income_category_assigned_to_user_id 
+AND date_of_income >= '$first_day_of_month' 
+AND date_of_income <= '$last_day_of_month'";
                     
-                echo $first_day_of_month."<br/>";
-                echo $last_day_of_month;    
-                    
+                $result_income = mysqli_query($connection, $query_income) or die("database error:". mysqli_error($connection));
+                   
                 $_SESSION['successful_bilance'] = true;
-                unset($_POST['month']);
+        
+
+                    } else {
+                        throw new Exception($connection->error);
+                    }
+                    
+                if ($query2 = $connection->query("SELECT e.amount, e.date_of_expense, ec.name
+FROM expenses e, expenses_category_assigned_to_users ec 
+WHERE e.user_id = '$id' 
+AND ec.id = e.expense_category_assigned_to_user_id 
+AND date_of_expense >= '$first_day_of_month' 
+AND date_of_expense <= '$last_day_of_month'")) {
+                 
+                $query_expense = "SELECT e.amount, e.date_of_expense, ec.name
+FROM expenses e, expenses_category_assigned_to_users ec 
+WHERE e.user_id = '$id' 
+AND ec.id = e.expense_category_assigned_to_user_id 
+AND date_of_expense >= '$first_day_of_month' 
+AND date_of_expense <= '$last_day_of_month'";
+                    
+                $result_expense = mysqli_query($connection, $query_expense) or die("database error:". mysqli_error($connection));
+                   
+                $_SESSION['successful_expense'] = true;
 
                     } else {
                         throw new Exception($connection->error);
                     }
                 }
+                unset($_POST['month']);
                  $connection->close();
                 }
 
@@ -166,118 +195,81 @@ AND date_of_income <= '$last_day_of_month'")) {
               </div>
          
             </div>
-          </div>
+          </div> 
       </div>
    </form>  
-      
-   
-      
- <div class="container">
-        <div class="table-wrapper">
+  
+<div class="container">
+    <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Przychody</h2></div>
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Kategoria</th>
-                        <th>Data</th>
-                        <th>Kwota</th>
-                        <th>Komentarz</th>
-                        <th>Edytuj/Usuń</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
-                </tbody>
-            </table>
-        </div>
-    </div>          
-      
-    <div class="container">
-        <div class="table-wrapper">
+       <table id="editableTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kwota</th>
+                <th>Data</th>
+                <th>Kategoria</th>													
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (isset($_SESSION['successful_bilance'])) {
+                
+                 while( $row = mysqli_fetch_assoc($result_income) ) { ?>
+               <td><?php echo $row ['amount']; ?></td>
+               <td><?php echo $row ['date_of_income']; ?></td>
+               <td><?php echo $row ['name']; ?></td>				   				  
+               </tr>
+            <?php } 
+        ?>
+        <?php unset($_SESSION['successful_bilance']) ?>
+    <?php } 
+?>
+           
+        </tbody>
+    </table> 
+</div>
+</div>
+    
+<div class="container">
+    <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Wydatki</h2></div>
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Kategoria</th>
-                        <th>Data</th>
-                        <th>Kwota</th>
-                        <th>Komentarz</th>
-                        <th>Edytuj/Usuń</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
-                </tbody>
-            </table>
-        </div>
-    </div>          
-      
+       <table id="editableTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kwota</th>
+                <th>Data</th>
+                <th>Kategoria</th>													
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (isset($_SESSION['successful_expense'])) {
+                
+                 while( $row = mysqli_fetch_assoc($result_expense) ) { ?>
+               <td><?php echo $row ['amount']; ?></td>
+               <td><?php echo $row ['date_of_expense']; ?></td>
+               <td><?php echo $row ['name']; ?></td>				   				  
+               </tr>
+            <?php } 
+        ?>
+        <?php unset($_SESSION['successful_expense']) ?>
+    <?php } 
+?>
+           
+        </tbody>
+    </table> 
+</div>
+</div>
+
+  
 <!--###############################-->
 <!--diagram ########################-->
 <!--###############################-->
@@ -309,9 +301,7 @@ AND date_of_income <= '$last_day_of_month'")) {
             </footer>
       
     <!-- sekcja JavaScript  -->
-     
-      
-      
+
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
