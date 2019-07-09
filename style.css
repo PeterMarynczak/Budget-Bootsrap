@@ -412,6 +412,10 @@ table.table td .add {
 
 
 
-.login-dialog {
+.narrow-dialog {
     height: 450px; !important;
+}
+
+#range-style {
+    margin-bottom: 1rem;
 }

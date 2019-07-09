@@ -119,7 +119,7 @@ if(isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
     </div>
 
     <div class="modal fade" role="dialog" id="loginModal">
-        <div class="modal-dialog login-dialog">
+        <div class="modal-dialog narrow-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">LOGOWANIE</h3>

@@ -3,8 +3,101 @@
 
     if (!isset($_SESSION['logged'])){
         header('Location: index.php');
+        exit();
     }
+    
+    if (isset($_POST['month'])) {
+        
+        require_once "connect.php";
+        mysqli_report(MYSQLI_REPORT_STRICT);
+        
+        $bilance = true;
+        $id = $_SESSION['id'];
+        $month = $_POST['month'];
+        
+        if($month == "current_month"){
+              
+            $first_day_of_month = date('Y-m-01');
+            $last_day_of_month = date('Y-m-t');
+            
+            try {
+            $connection = new mysqli($host, $db_user, $db_password, $db_name);
+                
+            if ($connection->connect_errno!=0) {
+				throw new Exception(mysqli_connect_errno());
+			} else {
+            
+                if ($bilance == true) {
+                
+                if ($query = $connection->query("SELECT i.amount, i.date_of_income, ic.name 
+FROM incomes i, incomes_category_assigned_to_users ic 
+WHERE i.user_id = '$id' 
+AND ic.id = i.income_category_assigned_to_user_id 
+AND date_of_income >= '$first_day_of_month' 
+AND date_of_income <= '$last_day_of_month'")) {
+                 
+                $query_income = "SELECT i.amount, i.date_of_income, ic.name 
+FROM incomes i, incomes_category_assigned_to_users ic 
+WHERE i.user_id = '$id' 
+AND ic.id = i.income_category_assigned_to_user_id 
+AND date_of_income >= '$first_day_of_month' 
+AND date_of_income <= '$last_day_of_month'";
+                    
+                $result_income = mysqli_query($connection, $query_income) or die("database error:". mysqli_error($connection));
+                   
+                $_SESSION['successful_bilance'] = true;
+        
+
+                    } else {
+                        throw new Exception($connection->error);
+                    }
+                    
+                if ($query2 = $connection->query("SELECT e.amount, e.date_of_expense, ec.name
+FROM expenses e, expenses_category_assigned_to_users ec 
+WHERE e.user_id = '$id' 
+AND ec.id = e.expense_category_assigned_to_user_id 
+AND date_of_expense >= '$first_day_of_month' 
+AND date_of_expense <= '$last_day_of_month'")) {
+                 
+                $query_expense = "SELECT e.amount, e.date_of_expense, ec.name
+FROM expenses e, expenses_category_assigned_to_users ec 
+WHERE e.user_id = '$id' 
+AND ec.id = e.expense_category_assigned_to_user_id 
+AND date_of_expense >= '$first_day_of_month' 
+AND date_of_expense <= '$last_day_of_month'";
+                    
+                $result_expense = mysqli_query($connection, $query_expense) or die("database error:". mysqli_error($connection));
+                   
+                $_SESSION['successful_expense'] = true;
+
+                    } else {
+                        throw new Exception($connection->error);
+                    }
+                }
+                unset($_POST['month']);
+                 $connection->close();
+                }
+
+            } catch(Exception $e) {
+            echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+            echo '<br />Informacja developerska: '.$e;
+            }
+        }
+        
+        if($month == "custom"){
+           $date1 = $_POST['date1'];
+            $date2 = $_POST['date2'];
+            echo $date1."<br/>";
+            echo $date2;     
+        }
+        
+       
+        
+    }
+  
+        
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
@@ -56,158 +149,127 @@
 <!--###############################-->
 <!--formularz########################-->
 <!--###############################-->
- 
+<form method="post">
+    <div class="form-group">
+        <div class="col-xs-offset-5 col-sm-7 col-sm-offset-9 col-sm-3 col-md-offset-9 col-md-3 col-lg-offset-10 col-lg-2 text-right"> 
+           <label for="month">Wybierz zakres:</label>
+              <select class="form-control" name="month" id="range-style">
+                <option value="current_month">Bieżący miesiąc</option>
+                <option value="last_month">Poprzedni miesiąc</option>
+                <option value="current_year">Bierzący rok</option>
+                <option value="custom" data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></option>
+            </select> 
+            <div class="row">
+          <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success btn-sm">
+              Potwierdź
+            </button>
+          </div>
+        </div>
+        </div>
+    </div>     
 
 
-<!-- Single button -->
-<div class="col-md-4 col-md-offset-8 col-lg-offset-8 col-lg-4 text-right"> 
-    <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Wybierz zakres <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu text-left">
-            <li><a href="#">Bieżący miesiąc</a></li>
-            <li><a href="#">Poprzedni miesiąc</a></li>
-            <li><a href="#">Bierzący rok</a></li>
-            <li role="separator" class="divider"></li>
-            <li data-toggle="modal" data-target="#myModal"><a href="#date-range">Niestandardowy</a></li>
-          </ul>
-    </div>
-</div>
-      
+
 <!--################################################-->
 <!--modal window zakred dat ########################-->
 <!--################################################-->
-      
+    
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog narrow-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Zakres dat</h4>
               </div>
+            
               <div class="modal-body">
                 <div class="input-group input-daterange">
-                    <input type="text" class="form-control" name="date">
+                    <input type="text" class="form-control" id ="date" name="date1">
                     <div class="input-group-addon">do</div>
-                    <input type="text" class="form-control" name="date">
+                    <input type="text" class="form-control" id ="date" name="date2">
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                <button type="button" class="btn btn-primary">Zapisz</button>
+                <button type="submit" class="btn btn-default">OK</button>
               </div>
+         
             </div>
-          </div>
+          </div> 
       </div>
-      
-      
- <div class="container">
-        <div class="table-wrapper">
+   </form>  
+  
+<div class="container">
+    <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Przychody</h2></div>
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Kategoria</th>
-                        <th>Data</th>
-                        <th>Kwota</th>
-                        <th>Komentarz</th>
-                        <th>Edytuj/Usuń</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
-                </tbody>
-            </table>
-        </div>
-    </div>          
-      
-    <div class="container">
-        <div class="table-wrapper">
+       <table id="editableTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kwota</th>
+                <th>Data</th>
+                <th>Kategoria</th>													
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (isset($_SESSION['successful_bilance'])) {
+                
+                 while( $row = mysqli_fetch_assoc($result_income) ) { ?>
+               <td><?php echo $row ['amount']; ?></td>
+               <td><?php echo $row ['date_of_income']; ?></td>
+               <td><?php echo $row ['name']; ?></td>				   				  
+               </tr>
+            <?php } 
+        ?>
+        <?php unset($_SESSION['successful_bilance']) ?>
+    <?php } 
+?>
+           
+        </tbody>
+    </table> 
+</div>
+</div>
+    
+<div class="container">
+    <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Wydatki</h2></div>
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Kategoria</th>
-                        <th>Data</th>
-                        <th>Kwota</th>
-                        <th>Komentarz</th>
-                        <th>Edytuj/Usuń</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
-                </tbody>
-            </table>
-        </div>
-    </div>          
-      
+       <table id="editableTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kwota</th>
+                <th>Data</th>
+                <th>Kategoria</th>													
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (isset($_SESSION['successful_expense'])) {
+                
+                 while( $row = mysqli_fetch_assoc($result_expense) ) { ?>
+               <td><?php echo $row ['amount']; ?></td>
+               <td><?php echo $row ['date_of_expense']; ?></td>
+               <td><?php echo $row ['name']; ?></td>				   				  
+               </tr>
+            <?php } 
+        ?>
+        <?php unset($_SESSION['successful_expense']) ?>
+    <?php } 
+?>
+           
+        </tbody>
+    </table> 
+</div>
+</div>
+
+  
 <!--###############################-->
 <!--diagram ########################-->
 <!--###############################-->
@@ -239,9 +301,7 @@
             </footer>
       
     <!-- sekcja JavaScript  -->
-     
-      
-      
+
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
