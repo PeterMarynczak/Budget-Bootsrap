@@ -303,7 +303,7 @@ box-sizing: border-box;
 
 /*table*/
 .table-wrapper {
-    width: 700px;
+    width: auto;
     margin: 10px auto;
     background: #fff;
     padding: 20px;	
