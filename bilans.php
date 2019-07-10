@@ -85,6 +85,25 @@ AND ec.id = e.expense_category_assigned_to_user_id
 AND date_of_expense >= '$first_day_of_month' 
 AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
                     
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM incomes WHERE date_of_income >= '$first_day_of_month' AND date_of_income <= '$last_day_of_month'");
+                    
+                $num_rows = $sum_result->num_rows;
+                if($num_rows > 0){
+                    
+                    $rows = $sum_result->fetch_assoc();
+                    $_SESSION['sum_income'] = $rows['amount_sum'];
+                }
+                mysqli_free_result($sum_result);
+                    
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM expenses WHERE date_of_expense >= '$first_day_of_month' AND date_of_expense <= '$last_day_of_month'");
+                    
+                $num_rows = $sum_result->num_rows;
+                if($num_rows > 0){
+                    
+                    $rows = $sum_result->fetch_assoc();
+                    $_SESSION['sum_expense'] = $rows['amount_sum'];
+                }
+                    
                 $result_expense = mysqli_query($connection, $query_expense) or die("database error:". mysqli_error($connection));
                    
                 $_SESSION['successful_expense'] = true;
@@ -94,7 +113,8 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
                     }
                 }
                 unset($_POST['month']);
-                 $connection->close();
+                mysqli_free_result($query);
+                $connection->close();
                 }
 
             } catch(Exception $e) {
@@ -226,7 +246,7 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
             <?php 
             if (isset($_SESSION['successful_bilance'])) {
                 
-                 while( $row = mysqli_fetch_assoc($result_income) ) { ?>
+                while( $row = mysqli_fetch_assoc($result_income) ) { ?>
                <td><?php echo $row ['amount']; ?></td>
                <td><?php echo $row ['date_of_income']; ?></td>
                <td><?php echo $row ['name']; ?></td>				   				  
@@ -240,6 +260,12 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
         </tbody>
     </table> 
 </div>
+    <?php
+    if (isset($_SESSION['sum_income'])) { ?>
+       <h3>Suma przychodów: <?php echo $_SESSION['sum_income']; ?> zł</h3> 
+    <?php }
+    ?>
+     <?php unset($_SESSION['sum_income']) ?>
 </div>
     
 <div class="container">
@@ -275,6 +301,12 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
         </tbody>
     </table> 
 </div>
+<?php
+    if (isset($_SESSION['sum_expense'])) { ?>
+       <h3>Suma wydatków: <?php echo $_SESSION['sum_expense']; ?> zł</h3> 
+    <?php }
+    ?>
+     <?php unset($_SESSION['sum_expense']) ?>
 </div>
 
   
