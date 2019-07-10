@@ -6,7 +6,7 @@
         exit();
     }
     
-    if (isset($_POST['month'])) {
+     if (isset($_POST['month'])) {
         
         require_once "connect.php";
         mysqli_report(MYSQLI_REPORT_STRICT);
@@ -19,6 +19,25 @@
               
             $first_day_of_month = date('Y-m-01');
             $last_day_of_month = date('Y-m-t');
+            
+        } else if ($month == "last_month") {
+            $first_day_of_month = date("Y-m-d", mktime(0, 0, 0, date("m")-1, 1));
+            $last_day_of_month = date("Y-m-d", mktime(0, 0, 0, date("m"), 0));
+            
+        } else if ($month == "current_year") {
+          
+            $first_day_of_month = date(('Y').'-01-01');
+            $last_day_of_month = date('Y') . '-12-31';
+            
+            
+        } else if($month == "custom") {
+            
+            $first_day_of_month = $_POST['date1'];
+            $last_day_of_month = $_POST['date2'];
+            $first_day_of_month = date("Y-m-d", strtotime($first_day_of_month));
+            $last_day_of_month = date("Y-m-d", strtotime($last_day_of_month));
+              
+        }
             
             try {
             $connection = new mysqli($host, $db_user, $db_password, $db_name);
@@ -41,7 +60,7 @@ FROM incomes i, incomes_category_assigned_to_users ic
 WHERE i.user_id = '$id' 
 AND ic.id = i.income_category_assigned_to_user_id 
 AND date_of_income >= '$first_day_of_month' 
-AND date_of_income <= '$last_day_of_month'";
+AND date_of_income <= '$last_day_of_month' ORDER BY i.date_of_income ASC";
                     
                 $result_income = mysqli_query($connection, $query_income) or die("database error:". mysqli_error($connection));
                    
@@ -64,7 +83,26 @@ FROM expenses e, expenses_category_assigned_to_users ec
 WHERE e.user_id = '$id' 
 AND ec.id = e.expense_category_assigned_to_user_id 
 AND date_of_expense >= '$first_day_of_month' 
-AND date_of_expense <= '$last_day_of_month'";
+AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
+                    
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM incomes WHERE date_of_income >= '$first_day_of_month' AND date_of_income <= '$last_day_of_month'");
+                    
+                $num_rows = $sum_result->num_rows;
+                if($num_rows > 0){
+                    
+                    $rows = $sum_result->fetch_assoc();
+                    $_SESSION['sum_income'] = $rows['amount_sum'];
+                }
+                mysqli_free_result($sum_result);
+                    
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM expenses WHERE date_of_expense >= '$first_day_of_month' AND date_of_expense <= '$last_day_of_month'");
+                    
+                $num_rows = $sum_result->num_rows;
+                if($num_rows > 0){
+                    
+                    $rows = $sum_result->fetch_assoc();
+                    $_SESSION['sum_expense'] = $rows['amount_sum'];
+                }
                     
                 $result_expense = mysqli_query($connection, $query_expense) or die("database error:". mysqli_error($connection));
                    
@@ -75,7 +113,8 @@ AND date_of_expense <= '$last_day_of_month'";
                     }
                 }
                 unset($_POST['month']);
-                 $connection->close();
+                mysqli_free_result($query);
+                $connection->close();
                 }
 
             } catch(Exception $e) {
@@ -83,17 +122,6 @@ AND date_of_expense <= '$last_day_of_month'";
             echo '<br />Informacja developerska: '.$e;
             }
         }
-        
-        if($month == "custom"){
-           $date1 = $_POST['date1'];
-            $date2 = $_POST['date2'];
-            echo $date1."<br/>";
-            echo $date2;     
-        }
-        
-       
-        
-    }
   
         
 ?>
@@ -218,7 +246,7 @@ AND date_of_expense <= '$last_day_of_month'";
             <?php 
             if (isset($_SESSION['successful_bilance'])) {
                 
-                 while( $row = mysqli_fetch_assoc($result_income) ) { ?>
+                while( $row = mysqli_fetch_assoc($result_income) ) { ?>
                <td><?php echo $row ['amount']; ?></td>
                <td><?php echo $row ['date_of_income']; ?></td>
                <td><?php echo $row ['name']; ?></td>				   				  
@@ -232,6 +260,12 @@ AND date_of_expense <= '$last_day_of_month'";
         </tbody>
     </table> 
 </div>
+    <?php
+    if (isset($_SESSION['sum_income'])) { ?>
+       <h3>Suma przychodów: <?php echo $_SESSION['sum_income']; ?> zł</h3> 
+    <?php }
+    ?>
+     <?php unset($_SESSION['sum_income']) ?>
 </div>
     
 <div class="container">
@@ -267,6 +301,12 @@ AND date_of_expense <= '$last_day_of_month'";
         </tbody>
     </table> 
 </div>
+<?php
+    if (isset($_SESSION['sum_expense'])) { ?>
+       <h3>Suma wydatków: <?php echo $_SESSION['sum_expense']; ?> zł</h3> 
+    <?php }
+    ?>
+     <?php unset($_SESSION['sum_expense']) ?>
 </div>
 
   
