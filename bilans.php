@@ -79,23 +79,41 @@ AND date_of_expense >= '$first_day_of_month'
 AND date_of_expense <= '$last_day_of_month'")) {
                  
                 $query_expense = "SELECT e.amount, e.date_of_expense, ec.name
-FROM expenses e, expenses_category_assigned_to_users ec 
-WHERE e.user_id = '$id' 
-AND ec.id = e.expense_category_assigned_to_user_id 
-AND date_of_expense >= '$first_day_of_month' 
-AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
+                                    FROM expenses e, expenses_category_assigned_to_users ec 
+                                    WHERE e.user_id = '$id' 
+                                    AND ec.id = e.expense_category_assigned_to_user_id 
+                                    AND date_of_expense >= '$first_day_of_month' 
+                                    AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
                     
-                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM incomes WHERE date_of_income >= '$first_day_of_month' AND date_of_income <= '$last_day_of_month'");
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM incomes WHERE user_id = '$id' AND date_of_income >= '$first_day_of_month' AND date_of_income <= '$last_day_of_month'");
+                    
                     
                 $num_rows = $sum_result->num_rows;
                 if($num_rows > 0){
                     
+                    $chart_income = "SELECT i.amount, ic.name 
+                            FROM incomes i, incomes_category_assigned_to_users ic 
+                            WHERE i.user_id = '$id' 
+                            AND ic.id = i.income_category_assigned_to_user_id 
+                            AND date_of_income >= '$first_day_of_month' 
+                            AND date_of_income <= '$last_day_of_month'";
+                    $res_income = $connection->query($chart_income);
+                    
+                    $chart_expense = "SELECT e.amount, e.date_of_expense, ec.name
+                            FROM expenses e, expenses_category_assigned_to_users ec 
+                            WHERE e.user_id = '$id' 
+                            AND ec.id = e.expense_category_assigned_to_user_id 
+                            AND date_of_expense >= '$first_day_of_month' 
+                            AND date_of_expense <= '$last_day_of_month'";
+                    $res_expense = $connection->query($chart_expense);
+                    
                     $rows = $sum_result->fetch_assoc();
                     $_SESSION['sum_income'] = $rows['amount_sum'];
                 }
+    
                 mysqli_free_result($sum_result);
                     
-                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM expenses WHERE date_of_expense >= '$first_day_of_month' AND date_of_expense <= '$last_day_of_month'");
+                $sum_result = $connection->query("SELECT SUM(amount) AS amount_sum FROM expenses WHERE user_id = '$id' AND date_of_expense >= '$first_day_of_month' AND date_of_expense <= '$last_day_of_month'");
                     
                 $num_rows = $sum_result->num_rows;
                 if($num_rows > 0){
@@ -113,7 +131,6 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
                     }
                 }
                 unset($_POST['month']);
-                mysqli_free_result($query);
                 $connection->close();
                 }
 
@@ -129,6 +146,7 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
 <!DOCTYPE HTML>
 <html lang="pl">
   <head>
+    
     <title>Budgety</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>  
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -314,13 +332,16 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
 <!--diagram ########################-->
 <!--###############################-->
   
-    <div class="container">
-    <div class="chart-container">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-12"> 
-        <canvas id="myChart"></canvas>
-        </div>
-    </div> 
+    <div class="row">  
+        <h4 style="text-align: center;">Struktura przychodów</h4>
+        <div class="col-md-offset-4" id="piechart"></div>
     </div>
+
+ <div class="row">  
+        <h4 style="text-align: center;">Struktura wydatków</h4>
+        <div class="col-md-offset-4" id="piechart2"></div>
+    </div>
+ 
  
 <!--###############################-->
 <!--stopka ########################-->
@@ -344,12 +365,58 @@ AND date_of_expense <= '$last_day_of_month' ORDER BY e.date_of_expense";
 
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>   
     <script src="js/wlasny.js"></script>  
-   <script>
+      
+   <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['name', 'amount'],
+            
+        <?php
+            while($row=$res_income->fetch_assoc()) {
+
+                echo "['".$row['name']."',".$row['amount']."],";
+            }
+        ?>
+         
+        ]);
+
+        var options = {
+          //title: 'Struktura przychodów'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+          
+        var data = google.visualization.arrayToDataTable([
+          ['name', 'amount'],
+            
+        <?php
+            while($row2=$res_expense->fetch_assoc()) {
+
+                echo "['".$row2['name']."',".$row2['amount']."],";
+            }
+        ?>
+         
+        ]);
+
+        var options = {
+          //title: 'Struktura przychodów'
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart2.draw(data, options);
+      }
     </script>
   </body>
 </html>
