@@ -419,3 +419,15 @@ table.table td .add {
 #range-style {
     margin-bottom: 1rem;
 }
+
+#piechart {
+    width: 500px; 
+    height: 350px;
+    padding: 1rem;
+}
+
+#piechart2 {
+    width: 500px; 
+    height: 350px;
+    padding: 1rem;
+}

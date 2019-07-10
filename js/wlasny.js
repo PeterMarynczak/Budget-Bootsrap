@@ -25,8 +25,32 @@
     $(this).datepicker('clearDates');
 });
 
+
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	exportEnabled: true,
+	title:{
+		text: "Average Expense Per Day  in Thai Baht"
+	},
+	subtitles: [{
+		text: "Currency Used: Thai Baht (฿)"
+	}],
+	data: [{
+		type: "pie",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - #percent%",
+		yValueFormatString: "฿#,##0",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+
 /*pie chart------------------------------*/
-var ctx = document.getElementById('myChart').getContext('2d');
+/*var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -57,7 +81,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
         scales: {
         }
     }
-});
+});*/
 
 /*editable table------------------------------*/
 $(document).ready(function(){
