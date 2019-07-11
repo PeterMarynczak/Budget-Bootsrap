@@ -91,20 +91,22 @@ AND date_of_expense <= '$last_day_of_month'")) {
                 $num_rows = $sum_result->num_rows;
                 if($num_rows > 0){
                     
-                    $chart_income = "SELECT i.amount, ic.name 
-                            FROM incomes i, incomes_category_assigned_to_users ic 
-                            WHERE i.user_id = '$id' 
-                            AND ic.id = i.income_category_assigned_to_user_id 
-                            AND date_of_income >= '$first_day_of_month' 
-                            AND date_of_income <= '$last_day_of_month'";
+                    $chart_income = "SELECT SUM(i.amount) as amount, ic.name
+                 FROM incomes_category_assigned_to_users ic, incomes i
+                 WHERE i.user_id = '$id' 
+                 AND ic.id = i.income_category_assigned_to_user_id
+                 AND date_of_income >= '$first_day_of_month' 
+                 AND date_of_income <= '$last_day_of_month'
+				 GROUP BY ic.name";
                     $res_income = $connection->query($chart_income);
                     
-                    $chart_expense = "SELECT e.amount, e.date_of_expense, ec.name
-                            FROM expenses e, expenses_category_assigned_to_users ec 
-                            WHERE e.user_id = '$id' 
-                            AND ec.id = e.expense_category_assigned_to_user_id 
-                            AND date_of_expense >= '$first_day_of_month' 
-                            AND date_of_expense <= '$last_day_of_month'";
+                    $chart_expense = "SELECT SUM(i.amount) as amount, ic.name
+                 FROM expenses_category_assigned_to_users ic, expenses i
+                 WHERE i.user_id = '$id' 
+                 AND ic.id = i.expense_category_assigned_to_user_id
+                 AND date_of_expense >= '$first_day_of_month' 
+                 AND date_of_expense <= '$last_day_of_month'
+				 GROUP BY ic.name";
                     $res_expense = $connection->query($chart_expense);
                     
                     $rows = $sum_result->fetch_assoc();
@@ -246,54 +248,61 @@ AND date_of_expense <= '$last_day_of_month'")) {
    </form>  
   
 <div class="container">
-    <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-8"><h2>Przychody</h2></div>
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+    <div class="table-responsive">
+        <div class="table table-striped w-auto">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Przychody</h2></div>
+                    </div>
                 </div>
-            </div>
-       <table id="editableTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Kwota</th>
-                <th>Data</th>
-                <th>Kategoria</th>													
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-            if (isset($_SESSION['successful_bilance'])) {
-                
-                while( $row = mysqli_fetch_assoc($result_income) ) { ?>
-               <td><?php echo $row ['amount']; ?></td>
-               <td><?php echo $row ['date_of_income']; ?></td>
-               <td><?php echo $row ['name']; ?></td>				   				  
-               </tr>
-            <?php } 
-        ?>
-        <?php unset($_SESSION['successful_bilance']) ?>
-    <?php } 
-?>
-           
-        </tbody>
-    </table> 
-</div>
-    <?php
-    if (isset($_SESSION['sum_income'])) { ?>
-       <h3>Suma przychodów: <?php echo $_SESSION['sum_income']; ?> zł</h3> 
-    <?php }
+           <table id="editableTable" class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>Kwota</th>
+                    <th>Data</th>
+                    <th>Kategoria</th>													
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                if (isset($_SESSION['successful_bilance'])) {
+
+                    while( $row = mysqli_fetch_assoc($result_income) ) { ?>
+                    <tr class="table-info">
+                        <td><?php echo $row ['amount']; ?></td>
+                        <td><?php echo $row ['date_of_income']; ?>
+                        <td><?php echo $row ['name']; ?></td>			   			 
+                   </tr>
+                <?php } 
+            ?>
+            <?php unset($_SESSION['successful_bilance']) ?>
+        <?php } 
     ?>
-     <?php unset($_SESSION['sum_income']) ?>
+
+            </tbody>
+        </table> 
+    </div>
+            <?php
+            if (isset($_SESSION['sum_income'])) { ?>
+               <h4>Suma przychodów: <?php echo $_SESSION['sum_income']; ?> zł</h4> 
+            <?php }
+            ?>
+             <?php unset($_SESSION['sum_income']) ?>
+        </div>
+    </div>
 </div>
-    
+      
 <div class="container">
-    <div class="table-wrapper">
-            <div class="table-title">
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+    <div class="table-responsive">
+        <div class="table table-striped w-auto">
+                <div class="table-title">
                 <div class="row">
                     <div class="col-sm-8"><h2>Wydatki</h2></div>
                 </div>
             </div>
-       <table id="editableTable" class="table table-bordered">
+       <table id="editableTable" class="table table-stripped">
         <thead>
             <tr>
                 <th>Kwota</th>
@@ -306,9 +315,10 @@ AND date_of_expense <= '$last_day_of_month'")) {
             if (isset($_SESSION['successful_expense'])) {
                 
                  while( $row = mysqli_fetch_assoc($result_expense) ) { ?>
-               <td><?php echo $row ['amount']; ?></td>
-               <td><?php echo $row ['date_of_expense']; ?></td>
-               <td><?php echo $row ['name']; ?></td>				   				  
+                <tr class="table-info">
+                   <td><?php echo $row ['amount']; ?></td>
+                   <td><?php echo $row ['date_of_expense']; ?></td>
+                   <td><?php echo $row ['name']; ?></td>				   			 
                </tr>
             <?php } 
         ?>
@@ -321,10 +331,12 @@ AND date_of_expense <= '$last_day_of_month'")) {
 </div>
 <?php
     if (isset($_SESSION['sum_expense'])) { ?>
-       <h3>Suma wydatków: <?php echo $_SESSION['sum_expense']; ?> zł</h3> 
+       <h4>Suma wydatków: <?php echo $_SESSION['sum_expense']; ?> zł</h4> 
     <?php }
     ?>
      <?php unset($_SESSION['sum_expense']) ?>
+</div>
+    </div>
 </div>
 
   
@@ -332,12 +344,12 @@ AND date_of_expense <= '$last_day_of_month'")) {
 <!--diagram ########################-->
 <!--###############################-->
   
-    <div class="row">  
+    <div class="container">  
         <h4 style="text-align: center;">Struktura przychodów</h4>
         <div class="col-md-offset-4" id="piechart"></div>
     </div>
 
- <div class="row">  
+ <div class="container">  
         <h4 style="text-align: center;">Struktura wydatków</h4>
         <div class="col-md-offset-4" id="piechart2"></div>
     </div>

@@ -161,11 +161,11 @@
           </h4>
           <div class="col-md-10">
             <label class="radio">
-              <input type="radio" name="category" id="Salary" value="Salary" checked>
+              <input type="radio" name="category" id="Salary" value="Wynagrodzenie" checked>
               Wynagrodzenie
             </label>
             <label class="radio">
-              <input type="radio" name="category" id="Interest" value="Interest">
+              <input type="radio" name="category" id="Interest" value="Odsetki bankowe">
               Odsetki bankowe
             </label>
             <label class="radio">
@@ -173,7 +173,7 @@
               Sprzedaż na Allegro
             </label>
             <label class="radio">
-              <input type="radio" name="category" id="Another" value="Another">
+              <input type="radio" name="category" id="Another" value="Inne">
               Inne
             </label>
             </div>

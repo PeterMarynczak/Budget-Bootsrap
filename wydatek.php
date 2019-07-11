@@ -165,15 +165,15 @@ AND p.name = '$payment'")) {
           </h4>
           <div class="col-md-10 col-lg-10">
             <label for="payment" class="radio">
-              <input type="radio" name="payment" id="gotowka" value="Cash" checked>
+              <input type="radio" name="payment" id="gotowka" value="Gotówka" checked>
               Gotówka
             </label>
             <label class="radio">
-              <input type="radio" name="payment" id="debetowa" value="Debit Card">
+              <input type="radio" name="payment" id="debetowa" value="Karta debetowa">
               Karta debetowa
             </label>
             <label class="radio">
-              <input type="radio" name="payment" id="kredytowa" value="Credit Card">
+              <input type="radio" name="payment" id="kredytowa" value="Karta kredytowa">
               Karta kredytowa
             </label>
          </div>
@@ -187,21 +187,21 @@ AND p.name = '$payment'")) {
         <div class="col-md-10 col-lg-10">
             <select class="form-control" name="category" id="kategoria">
               <option value="Transport">Transport</option>
-              <option value="Books">Książki</option>
-              <option value="Food">Jedzenie</option>
-              <option value="Apartments">Mieszkanie</option>
-              <option value="Telecommunication">Telekomunikacja</option>
-              <option value="Health">Opieka zdrowotna</option>
-              <option value="Clothes">Ubranie</option>
-              <option value="Hygiene">Higiena</option>
-              <option value="Kids">Dzieci</option>
-              <option value="Recreation">Rozrywka</option>
-              <option value="Trip">Podróż</option>
-              <option value="Savings">Oszczędności</option>
-              <option value="For Retirement">Na złotą jesień, czyli emeryturę</option>
-              <option value="Debt Repayment">Spłata długów</option>
-              <option value="Gift">Darowizna</option>
-              <option value="Another">Inne wydatki</option>
+              <option value="Książki">Książki</option>
+              <option value="Jedzenie">Jedzenie</option>
+              <option value="Mieszkanie">Mieszkanie</option>
+              <option value="Telekomunikacja">Telekomunikacja</option>
+              <option value="Opieka zdrowotna">Opieka zdrowotna</option>
+              <option value="Ubranie">Ubranie</option>
+              <option value="Higiena">Higiena</option>
+              <option value="Dzieci">Dzieci</option>
+              <option value="Rozrywka">Rozrywka</option>
+              <option value="Podróż">Podróż</option>
+              <option value="Oszczędności">Oszczędności</option>
+              <option value="Na emeryturę">Na emeryturę</option>
+              <option value="Spłata długów">Spłata długów</option>
+              <option value="Darowizna">Darowizna</option>
+              <option value="Inne wydatki">Inne wydatki</option>
             </select>
         </div>
     </div>
